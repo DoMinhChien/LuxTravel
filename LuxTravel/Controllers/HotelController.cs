@@ -14,7 +14,7 @@ namespace LuxTravel.Api.Controllers
     {
         public HotelController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-
+              
         }
         //[AllowAnonymous]
         [HttpGet("hotels")]
