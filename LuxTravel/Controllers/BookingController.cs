@@ -27,6 +27,9 @@ namespace LuxTravel.Api.Controllers
 
             return result;
         }
+        
+        //[HttpPost("")]
+        //public async Task<bool> CreateBooking([FromBody] )
 
 
     }

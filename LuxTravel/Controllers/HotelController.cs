@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommonFunctionality.Api;
+using CommonFunctionality.Helper;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace LuxTravel.Api.Controllers
         }
         //[AllowAnonymous]
         [HttpGet("hotels")]
-        public async Task<IEnumerable<HotelDto>> Get([FromQuery] GetAllHotelsQuery model)
+        public async Task<PagedList<HotelDto>> Get([FromQuery] GetAllHotelsQuery model)
         {
             return await SendRequestAsync(model);
         }

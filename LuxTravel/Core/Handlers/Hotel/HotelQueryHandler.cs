@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
-using  CommonFunctionality.Helper;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Models;
 using LuxTravel.Models.Dtos;
@@ -12,6 +11,7 @@ using LuxTravel.Models.Entities;
 using LuxTravel.Models.GenericRepository.Interfaces;
 using MediatR;
 using System.Linq;
+using CommonFunctionality.Helper;
 using Microsoft.EntityFrameworkCore;
 
 namespace LuxTravel.Api.Core.Handlers.Hotel
@@ -40,11 +40,17 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             var locationIds = locations.Select(r => r.Id).ToList();
             //get all Hotel belong to that location
             //var data = _hotelRepo.GetMany(r => locationIds.Contains(r.HotelLocationId.Value));
-            var data = await _hotelRepo.GetAll();
-            var result = PagedList<Models.Entities.Hotel>.ToPagedList(data.AsQueryable(), request.PageIndex, request.PageSize);
-
-
-            return _mapper.Map<PagedList<HotelDto>>(result);
+            var hotels = await _hotelRepo.GetAll();
+            var records = hotels.Select(r => new HotelDto()
+            {
+                Id = r.Id,
+                Name =  r.Name,
+                Phone =  r.Phone,
+                Email = r.Email,
+                Url =  r.Url
+            }).AsQueryable();
+            var pagedList =  PagedList<HotelDto>.ToPagedList(records, request.PageIndex, request.PageSize);
+            return pagedList;
         }
 
         public async Task<HotelDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
