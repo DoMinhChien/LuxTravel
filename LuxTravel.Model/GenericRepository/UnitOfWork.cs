@@ -1,35 +1,59 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using LuxTravel.Model.GenericRepository.Interfaces;
+﻿using System;
+using LuxTravel.Model.Entites;
+using LuxTravel.Model.Entities;
+using LuxTravel.Model.GenericRepository;
 
-namespace LuxTravel.Model.GenericRepository
+namespace LuxTravel.Model.BaseRepository
 {
-
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IDisposable
     {
-        private DbContext _context;
-
-        public UnitOfWork(DbContext context)
+        private LuxTravelDBContext context = new LuxTravelDBContext();
+        private BaseRepository<City> cityRepository;
+        private BaseRepository<Hotel> hotelRepository;
+        private BaseRepository<HotelLocation> hotelLocationRepository;
+        public BaseRepository<City> CityRepository
         {
-            _context = context;
+            get
+            {
 
+                if (this.cityRepository == null)
+                {
+                    this.cityRepository = new BaseRepository<City>(context);
+                }
+                return cityRepository;
+            }
+        }
+        public BaseRepository<Hotel> HotelRepository
+        {
+            get
+            {
 
+                if (this.hotelRepository == null)
+                {
+                    this.hotelRepository = new BaseRepository<Hotel>(context);
+                }
+                return hotelRepository;
+            }
+        }
+        public BaseRepository<HotelLocation> HotelLocationRepository
+        {
+            get
+            {
+
+                if (this.hotelLocationRepository == null)
+                {
+                    this.hotelLocationRepository = new BaseRepository<HotelLocation>(context);
+                }
+                return hotelLocationRepository;
+            }
         }
 
-        public DbContext Context => _context;
 
         public void SaveChanges()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
-        public async Task CommitAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
         private bool disposed = false;
 
         protected virtual void Dispose(bool disposing)
@@ -38,7 +62,7 @@ namespace LuxTravel.Model.GenericRepository
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
             }
             this.disposed = true;
@@ -49,6 +73,5 @@ namespace LuxTravel.Model.GenericRepository
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
     }
 }

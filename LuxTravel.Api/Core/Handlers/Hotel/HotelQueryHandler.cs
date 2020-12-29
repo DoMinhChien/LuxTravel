@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Queries;
-using LuxTravel.Model;
 using LuxTravel.Model.Dtos;
-using LuxTravel.Model.Entities;
-using LuxTravel.Model.GenericRepository.Interfaces;
 using MediatR;
-using System.Linq;
 using CommonFunctionality.Helper;
-using Microsoft.EntityFrameworkCore;
-using LuxTravel.Model.Entites;
+using LuxTravel.Model.BaseRepository;
 
 namespace LuxTravel.Api.Core.Handlers.Hotel
 {
@@ -22,48 +17,47 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
         IRequestHandler<GetDetailHotelQuery, HotelDto>
 
     {
-        private readonly IBaseRepository<Model.Entities.Hotel, LuxTravelDBContext> _hotelRepo;
-        private readonly IBaseRepository<HotelLocation, LuxTravelDBContext> _hotelLocationRepo;
-
-        public HotelQueryHandler(IServiceProvider serviceProvider,
-            IBaseRepository<Model.Entities.Hotel, LuxTravelDBContext> hotelRepo,
-            IBaseRepository<HotelLocation, LuxTravelDBContext> hotelLocationRepo) : base(serviceProvider)
+        private readonly UnitOfWork _unitOfWork = new UnitOfWork();
+        public HotelQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _hotelRepo = hotelRepo;
-            _hotelLocationRepo = hotelLocationRepo;
         }
 
 
         public async Task<PagedList<HotelDto>> Handle(GetAllHotelsQuery request, CancellationToken cancellationToken)
         {
-            //get location 
-            var locations = _hotelLocationRepo.GetMany(r => r.CityId == request.CityId);
-            var locationIds = locations.Select(r => r.Id).ToList();
-            //get all Hotel belong to that location
-            //var data = _hotelRepo.GetMany(r => locationIds.Contains(r.HotelLocationId.Value));
-            var hotels = await _hotelRepo.GetAll();
-            var records = hotels.Select(r => new HotelDto()
+            List<Guid> locationIds = new List<Guid>();
+            IEnumerable<Model.Entities.Hotel> data = null;
+            if (request.CityId.HasValue)
+            {
+                var locations = await _unitOfWork.HotelLocationRepository.GetMany(r => r.CityId == request.CityId);
+                locationIds = locations.Select(r => r.Id).ToList();
+                data = await _unitOfWork.HotelRepository.GetMany(r => locationIds.Contains(r.HotelLocationId.Value));
+
+            }
+            else
+            {
+                data = await _unitOfWork.HotelRepository.GetAll();
+            }
+
+
+            var records = data.Select(r => new HotelDto()
             {
                 Id = r.Id,
-                Name =  r.Name,
-                Phone =  r.Phone,
+                Name = r.Name,
+                Phone = r.Phone,
                 Email = r.Email,
-                Url =  r.Url
+                Url = r.Url
             }).AsQueryable();
-            var pagedList =  PagedList<HotelDto>.ToPagedList(records, request.PageIndex, request.PageSize);
+            var pagedList = PagedList<HotelDto>.ToPagedList(records, request.PageIndex, request.PageSize);
             return pagedList;
         }
 
-        public Task<HotelDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
+
+        public async Task<HotelDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.HotelRepository.GetByIdAsync(request.Id);
+
+            return _mapper.Map<HotelDto>(entity);
         }
-
-        //public async Task<HotelDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
-        //{
-        //    var entity = _hotelRepo.GetMany(r => r.Id == request.Id).Include(c=>c.Rooms);
-
-        //    return _mapper.Map<HotelDto>(entity);
-        //}
     }
 }

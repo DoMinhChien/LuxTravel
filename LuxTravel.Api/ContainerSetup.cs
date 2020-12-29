@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Entites;
 using LuxTravel.Model.GenericRepository;
-using LuxTravel.Model.GenericRepository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,20 +34,22 @@ namespace LuxTravel.Api
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
                 services.AddDbContext<LuxTravelDBContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("AzureConnection")));
+                    options.UseSqlServer(configuration.GetConnectionString("AzureConnection"),
+                        sqlServerOptions => sqlServerOptions.CommandTimeout(60)));
             }
             else
             {
                 services.AddDbContext<LuxTravelDBContext>(options =>
-                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+                    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                        sqlServerOptions => sqlServerOptions.CommandTimeout(60)));
             }
 
             //services.BuildServiceProvider().GetService<LuxTravelDBContext>().Database.Migrate();
 
 
-            services.AddScoped(typeof(IBaseRepository<,>), typeof(BaseRepository<,>));
+            services.AddScoped( typeof(BaseRepository<>));
 
-            services.AddScoped<IUnitOfWork>(ctx => new UnitOfWork(ctx.GetRequiredService<LuxTravelDBContext>()));
+            services.AddScoped(typeof(UnitOfWork));
         }
 
         private static void AddQueries(IServiceCollection services)

@@ -33,9 +33,11 @@ namespace LuxTravel.Model.Entites
         public virtual DbSet<BookingDetail> BookingDetails { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+           string connectionStr = "Database=LuxTravelManagement;Trusted_Connection=True;";
+            //string connectionStr = "Server=tcp:luxtravelserver.database.windows.net,1433;Initial Catalog=LuxTravelManagement;Persist Security Info=False;User ID=dominhchien206@luxtravelserver.database.windows.net;Password=Chien#2020;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Database=LuxTravelManagement;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(connectionStr);
             }
         }
 

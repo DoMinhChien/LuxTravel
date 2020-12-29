@@ -7,7 +7,6 @@ using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
 using LuxTravel.Model.Entites;
-using LuxTravel.Model.GenericRepository.Interfaces;
 using MediatR;
 
 namespace LuxTravel.Api.Core.Handlers.Room
@@ -17,12 +16,8 @@ namespace LuxTravel.Api.Core.Handlers.Room
         IRequestHandler<GetDetailRoomQuery, RoomDto>
 
     {
-        private readonly IBaseRepository<Model.Entities.Room, LuxTravelDBContext> _roomRepo;
-
-        public RoomQueryHandler(IServiceProvider serviceProvider,
-            IBaseRepository<Model.Entities.Room, LuxTravelDBContext> roomRepo) : base(serviceProvider)
+        public RoomQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _roomRepo = roomRepo;
         }
 
         //public async Task<IEnumerable<RoomDto>> Handle(GetAllRoomByHotelQuery request, CancellationToken cancellationToken)
@@ -32,10 +27,12 @@ namespace LuxTravel.Api.Core.Handlers.Room
         //    return result;
         //}
 
-        public async Task<RoomDto> Handle(GetDetailRoomQuery request, CancellationToken cancellationToken)
+        public  Task<RoomDto> Handle(GetDetailRoomQuery request, CancellationToken cancellationToken)
         {
-            var entity = await _roomRepo.GetById(request.Id);
-            return _mapper.Map<RoomDto>(entity);
+            //var entity = await _roomRepo.GetById(request.Id);
+            //return _mapper.Map<RoomDto>(entity);
+            throw new NotImplementedException();
+
 
         }
 

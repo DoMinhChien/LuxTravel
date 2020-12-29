@@ -12,22 +12,16 @@ namespace LuxTravel.Api.Controllers
 {
     [Route("api/booking")]
 
-    public class BookingController : ControllerBase
+    public class BookingController : ApiControllerBase
     {
-        private readonly IMediator _mediator;
-
-        //public BookingController(IServiceProvider serviceProvider) : base(serviceProvider)
-        //{
-
-        //}
-        public BookingController(IMediator mediator)
+        public BookingController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _mediator = mediator;
+
         }
         [HttpGet("bookings")]
         public async Task<IEnumerable<BookingDto>> Get([FromQuery] GetAllBookingsQuery model)
         {
-            var result = await _mediator.Send(model);
+            var result = await SendRequestAsync(model);
 
             return result;
         }

@@ -1,38 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Api;
 using LuxTravel.Api.Core.Queries;
+using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
-using MediatR;
 
 namespace LuxTravel.Api.Controllers
 {
     [Route("api/master-data")]
     [ApiController]
 
-    public class MasterDataController : ControllerBase
+    public class MasterDataController : ApiControllerBase
     {
-        private readonly IMediator _mediator;
+        private UnitOfWork unitOfWork = new UnitOfWork();
 
-        public MasterDataController(IMediator mediator)
+
+        public MasterDataController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _mediator = mediator;
-        }
-        //public MasterDataController(IServiceProvider serviceProvider) : base(serviceProvider)
-        //{
 
-        //}
+        }
 
         [HttpGet("countries")]
-        public async Task<IEnumerable<SelectedObjectDto>> GetCity([FromQuery] GetAllCitiesQuery model, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<SelectedObjectDto>> GetCity([FromQuery] GetAllCitiesQuery model)
         {
-            var result = await _mediator.Send(model, cancellationToken);
-            return result;
-            //return  SendRequestAsync(model);
+
+            return await  SendRequestAsync(model);
         }
 
         [HttpGet("testing")]
@@ -40,6 +34,5 @@ namespace LuxTravel.Api.Controllers
         {
             return  "Hello World";
         }
-
     }
 }
