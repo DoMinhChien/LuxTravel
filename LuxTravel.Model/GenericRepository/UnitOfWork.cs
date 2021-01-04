@@ -18,6 +18,7 @@ namespace LuxTravel.Model.BaseRepository
         private BaseRepository<RoomPrice> roomPriceRepository;
         private BaseRepository<RoomType> roomTypeRepository;
         private BaseRepository<Guest> guestRepository;
+        private BaseRepository<Photo> photoRepository;
 
         public LuxTravelDBContext Context
         {
@@ -145,6 +146,18 @@ namespace LuxTravel.Model.BaseRepository
                     this.guestRepository = new BaseRepository<Guest>(context);
                 }
                 return guestRepository;
+            }
+        }
+        public BaseRepository<Photo> PhotoRepository
+        {
+            get
+            {
+
+                if (this.photoRepository == null)
+                {
+                    this.photoRepository = new BaseRepository<Photo>(context);
+                }
+                return photoRepository;
             }
         }
         public void SaveChanges()

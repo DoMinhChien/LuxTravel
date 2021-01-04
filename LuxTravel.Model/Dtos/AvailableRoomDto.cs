@@ -12,5 +12,6 @@ namespace LuxTravel.Model.Dtos
         public int Capacity { get; set; }
         public int Bed { get; set; }
         public string RoomType { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
 }

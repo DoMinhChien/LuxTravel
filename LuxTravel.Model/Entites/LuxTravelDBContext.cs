@@ -36,10 +36,12 @@ namespace LuxTravel.Model.Entites
         public virtual DbSet<HotelRating> HotelRatings { get; set; }
         public virtual DbSet<SpGetListHotel> SpGetListHotel { get; set; }
         public virtual DbSet<SPGetRoomByHotel> SpGetRoomByHotels { get; set; }
-    
+        public virtual DbSet<Photo> Photos { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           //string connectionStr = "Database=LuxTravelManagement;Trusted_Connection=True;";
+        { 
+           // string connectionStr = "Database=LuxTravelManagement;Trusted_Connection=True;";
            string connectionStr = "Server=tcp:luxtravelserver.database.windows.net,1433;Initial Catalog=LuxTravelManagement;Persist Security Info=False;User ID=dominhchien206@luxtravelserver.database.windows.net;Password=Chien#2020;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             if (!optionsBuilder.IsConfigured)
             {

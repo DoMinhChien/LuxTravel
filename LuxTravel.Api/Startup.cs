@@ -5,8 +5,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using CloudinaryDotNet;
 using CommonFunctionality.Core;
 using LuxTravel.Api.Mappings;
+using LuxTravel.Model;
 using LuxTravel.Model.Entites;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -91,9 +93,13 @@ namespace LuxTravel.Api
                         ValidateAudience = false
                     };
                 });
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddControllers();
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            
             services.AddScoped(typeof(RequestHandlerBase));
+            services.AddScoped(typeof(Cloudinary));
             ContainerSetup.Setup(services, Configuration);
 
         }

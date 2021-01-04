@@ -26,21 +26,29 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
         }
 
 
-        public  Task<IEnumerable<HotelDto>> Handle(GetAllHotelsQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<HotelDto>> Handle(GetAllHotelsQuery request, CancellationToken cancellationToken)
         {
             string listRoomTypes = string.Empty;
-            var parameters = new List<SqlParameter>();
-            string query = $"EXEC [dbo].[GetListHotel] @CitytId ='{request.CityId}' ";
             if (request.RoomTypeIds != null && request.RoomTypeIds.Any())
             {
                 listRoomTypes = string.Join(",", request.RoomTypeIds.Select(r => r));
-                query = query + $", @RoomTypeIds={listRoomTypes} ";
-
             }
-            
-            query = query + $", @Rating = {request.Rating}, @GuestCount = {request.GuestCount}";
-            var data = _unitOfWork.Context.SpGetListHotel
-                .FromSqlInterpolated($"EXEC [dbo].[GetListHotel] @CitytId = {request.CityId}, @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}").ToList();
+
+            if (string.IsNullOrEmpty(request.Sort))
+            {
+                request.Sort = " Name ";
+            }
+
+            if (request.PageIndex <1)
+            {
+                request.PageIndex = 1;
+            }
+
+            if (request.PageSize <10)
+            {
+                request.PageSize = 10;
+            }
+            var data = _unitOfWork.Context.SpGetListHotel.FromSqlInterpolated($@"EXEC [dbo].[GetListHotel] @CityId = {request.CityId},  @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}, @PageIndex = {request.PageIndex}, @PageSize = {request.PageSize}, @Sort = {request.Sort}").ToList();
 
             var records = _mapper.Map<IEnumerable<HotelDto>>(data);
 
@@ -55,6 +63,38 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
 
         }
 
+        private async Task<List<string>> GetHotelImages(Guid id)
+        {
+            var images = await _unitOfWork.PhotoRepository.GetMany(r => r.ObjectId == id);
+            var imageUrls = new List<string>();
+            if (images != null && images.Any())
+            {
+                foreach (var image in images)
+                {
+                    imageUrls.Add(image.Url);
+                }
+            }
+
+            return imageUrls;
+        }
+        private async Task<List<AvailableRoomDto>> GetRoomForHotel(Guid hotelId)
+        {
+            var rooms = _unitOfWork.Context.SpGetRoomByHotels
+                .FromSqlInterpolated($"GetRoomByHotelId {hotelId} ").ToList();
+            var result = _mapper.Map<List<AvailableRoomDto>>(rooms);
+            if (result.Count >0)
+            {
+                //Get image for room
+                var roomIds = result.Select(r => r.RoomId).ToList();
+                var photos = await _unitOfWork.PhotoRepository.GetMany(r => roomIds.Contains(r.ObjectId));
+                result.ForEach(r =>
+                {
+                    var pics = photos.Where(p => p.ObjectId == r.RoomId).ToList();
+                    r.ImageUrls = pics.Select(c => c.Url).ToList();
+                });
+            }
+            return result;
+        }
         public async Task<HotelDetailDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
         {
             //Get all hotel belong to location which have respective city
@@ -62,9 +102,9 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             if (selectedHotel != null)
             {
                 //Get rooms
-                var rooms = _unitOfWork.Context.SpGetRoomByHotels
-                    .FromSqlInterpolated($"GetRoomByHotelId {selectedHotel.Id} ").ToList();
-
+                var rooms = await GetRoomForHotel(selectedHotel.Id);
+                //Get Images for hotel
+                var imageUrls = await GetHotelImages(selectedHotel.Id);
                 var result =
                     new HotelDetailDto()
                     {
@@ -74,7 +114,8 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
                         GuestId = GuestId,
                         GuestCount = request.GuestCount,
                         HotelName = selectedHotel.Name,
-                        AvailableRooms = _mapper.Map<List<AvailableRoomDto>>(rooms)
+                        AvailableRooms = rooms,
+                        ImageUrls = imageUrls
                     };
 
                 return result;
