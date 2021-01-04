@@ -22,17 +22,18 @@ namespace LuxTravel.Api.Controllers
 
         }
 
-        [HttpGet("countries")]
+        [HttpGet("cities")]
         public async Task<IEnumerable<SelectedObjectDto>> GetCity([FromQuery] GetAllCitiesQuery model)
         {
 
             return await  SendRequestAsync(model);
         }
-
-        [HttpGet("testing")]
-        public string testing()
+        [HttpGet("room-types")]
+        public async Task<IEnumerable<RoomTypeDto>> GetRoomType([FromQuery] GetAllRoomTypesQuery model)
         {
-            return  "Hello World";
+
+            return await SendRequestAsync(model);
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using LuxTravel.Model.Entites;
 
 namespace LuxTravel.Model.Entities
 {
@@ -20,6 +21,7 @@ namespace LuxTravel.Model.Entities
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual HotelLocation HotelLocation { get; set; }
+        public  virtual ICollection<HotelRating> Ratings { get; set; }
 
     }
 }

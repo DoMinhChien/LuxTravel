@@ -11,6 +11,30 @@ namespace LuxTravel.Model.BaseRepository
         private BaseRepository<City> cityRepository;
         private BaseRepository<Hotel> hotelRepository;
         private BaseRepository<HotelLocation> hotelLocationRepository;
+        private BaseRepository<Booking> bookingRepository;
+        private BaseRepository<BookingDetail> bookingDetailRepository;
+        private BaseRepository<Room> roomRepository;
+        private BaseRepository<CurrencySetting> currencySettingRepository;
+        private BaseRepository<RoomPrice> roomPriceRepository;
+        private BaseRepository<RoomType> roomTypeRepository;
+        private BaseRepository<Guest> guestRepository;
+
+        public LuxTravelDBContext Context
+        {
+            get
+            {
+
+                if (this.context == null)
+                {
+                    this.context = new LuxTravelDBContext();
+                }
+                return context;
+            }
+        }
+
+        /// <summary>
+        /// Implementation
+        /// </summary>
         public BaseRepository<City> CityRepository
         {
             get
@@ -49,6 +73,80 @@ namespace LuxTravel.Model.BaseRepository
         }
 
 
+        public BaseRepository<Booking> BookingRepository
+        {
+            get
+            {
+
+                if (this.bookingRepository == null)
+                {
+                    this.bookingRepository = new BaseRepository<Booking>(context);
+                }
+                return bookingRepository;
+            }
+        }
+        public BaseRepository<BookingDetail> BookingDetailRepository
+        {
+            get
+            {
+
+                if (this.bookingDetailRepository == null)
+                {
+                    this.bookingDetailRepository = new BaseRepository<BookingDetail>(context);
+                }
+                return bookingDetailRepository;
+            }
+        }
+
+        public BaseRepository<Room> RoomRepository
+        {
+            get
+            {
+
+                if (this.roomRepository == null)
+                {
+                    this.roomRepository = new BaseRepository<Room>(context);
+                }
+                return roomRepository;
+            }
+        }
+
+        public BaseRepository<CurrencySetting> CurrencySetting
+        {
+            get
+            {
+
+                if (this.currencySettingRepository == null)
+                {
+                    this.currencySettingRepository = new BaseRepository<CurrencySetting>(context);
+                }
+                return currencySettingRepository;
+            }
+        }
+        public BaseRepository<RoomType> RoomTypeRepository
+        {
+            get
+            {
+
+                if (this.roomTypeRepository == null)
+                {
+                    this.roomTypeRepository = new BaseRepository<RoomType>(context);
+                }
+                return roomTypeRepository;
+            }
+        }
+        public BaseRepository<Guest> GuestRepository
+        {
+            get
+            {
+
+                if (this.guestRepository == null)
+                {
+                    this.guestRepository = new BaseRepository<Guest>(context);
+                }
+                return guestRepository;
+            }
+        }
         public void SaveChanges()
         {
             context.SaveChanges();

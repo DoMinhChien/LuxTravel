@@ -6,18 +6,18 @@ namespace LuxTravel.Constants
 {
     public enum BookingStatusEnum
     {
-        New = 1,
-        Inprogress =2,
-        Closed =3
+       // New = 1,
+        Inprogress =1,
+        Closed =2
     }
 
     public class BookingStatusMasterData
     {
         public static Dictionary<int, Guid> StatusValue = new Dictionary<int, Guid>()
         {
-            { (int)BookingStatusEnum.New, Guid.Parse("262985E5-AB00-408F-A828-E67D158D7E43")},
-            { (int)BookingStatusEnum.Inprogress, Guid.Parse("37A7D996-2213-45DF-A6C5-7EA68E0D1A4D")},
-            { (int)BookingStatusEnum.Closed, Guid.Parse("B978265A-D5F5-4969-96D4-1128725F1F6A")}
+           // { (int)BookingStatusEnum.New, Guid.Parse("262985E5-AB00-408F-A828-E67D158D7E43")},
+            { (int)BookingStatusEnum.Inprogress, Guid.Parse("2565189D-411C-43CD-BFF1-3F6C2C0D6B27")},
+            { (int)BookingStatusEnum.Closed, Guid.Parse("EE3F767E-A225-42DD-A06B-B6F945370EBC")}
         };
     }
     public enum MasterDataEnum

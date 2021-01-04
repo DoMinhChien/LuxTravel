@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using LuxTravel.Model.Entites;
@@ -100,7 +101,7 @@ namespace LuxTravel.Model.GenericRepository
         private void SetIdValue(TEntity entity)
         {
             var idProp = entity.GetType().GetProperty("Id");
-            if (idProp.PropertyType != typeof(Guid))
+            if (idProp == null  || idProp.PropertyType != typeof(Guid))
             {
                 return;
             }
@@ -143,6 +144,14 @@ namespace LuxTravel.Model.GenericRepository
         //        query = query.Include(include);
         //    return query;
         //}
+
+        public async Task<List<TEntity>> ExecuteSP(string query, params object[] parameters)
+        {
+
+            var result = this.dbSet.FromSqlRaw(query, parameters.ToArray()).ToList();
+
+            return result;
+        }
 
     }
 

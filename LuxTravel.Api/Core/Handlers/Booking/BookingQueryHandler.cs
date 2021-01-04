@@ -1,62 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Queries;
-using LuxTravel.Constants;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
-using LuxTravel.Model.Entites;
-using LuxTravel.Model.Entities;
+using LuxTravel.Model.Migrations;
 using MediatR;
+
 
 namespace LuxTravel.Api.Core.Handlers.Booking
 {
     public class BookingQueryHandler : RequestHandlerBase,
-        IRequestHandler<GetAllBookingsQuery, IEnumerable<BookingDto>>,
-        IRequestHandler<GetBookingDetailQuery, BookingDetailDto>
+        IRequestHandler<GetBookingDetailQuery, BookingDto>
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
 
         public BookingQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-        public async Task<IEnumerable<BookingDto>> Handle(GetAllBookingsQuery request, CancellationToken cancellationToken)
+        public Task<BookingDto> Handle(GetBookingDetailQuery request, CancellationToken cancellationToken)
         {
-            //Get all hotel belong to location which have respective city
-            var listLocations = await _unitOfWork.HotelLocationRepository.GetMany(r => r.CityId == request.CityId) ;
-            var locationIds = listLocations.Select(r => r.Id).ToList();
-            var listHotel = await _unitOfWork.HotelRepository.GetMany(r => locationIds.Contains(r.HotelLocationId.Value));
-            var listBookings = new List<BookingDto>();
-            if (listHotel.Any())
+            if (request.SelectedRoom !=null)
             {
-                listHotel.ToList().ForEach(r =>
-                {
-                    listBookings.Add(new BookingDto()
-                    {
-                        Id = Guid.NewGuid(),
-                        HotelId = r.Id,
-                        HotelName = r.Name,
-                        GuestId = GuestId,
-                        DateFrom = request.DateFrom,
-                        DateTo = request.DateTo,
-                        RoomCount = request.RoomCount,
-                        StatusId = BookingStatusMasterData.StatusValue[(int)BookingStatusEnum.New]
+                //Get room quantity base on Guest count
+                int roomCount = request.GuestCount / request.SelectedRoom.Capacity;
+                var diffNightTimeSpan = request.DateTo.Subtract(request.DateFrom);  
+                var nightCount =(int)diffNightTimeSpan.TotalDays;
+                var totals = nightCount * roomCount;
+                 var result = new BookingDto()
+                 {
+                     HotelId =  request.HotelId,
+                     DateFrom = request.DateFrom,
+                     DateTo =  request.DateTo,
+                     NightCount =  nightCount,
+                     RoomCount = roomCount,
+                     GuestCount = request.GuestCount,
+                     SelectedRoom = _mapper.Map<AvailableRoomDto>(request.SelectedRoom),
+                     Totals =  totals * request.SelectedRoom.Price
+                 };
+                 return Task.FromResult(result);
 
-                    });
-                });
 
             }
 
-            return listBookings;
-
+            return null;
         }
 
-        public Task<BookingDetailDto> Handle(GetBookingDetailQuery request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 }

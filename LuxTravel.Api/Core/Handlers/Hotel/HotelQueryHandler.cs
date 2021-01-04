@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,12 +10,14 @@ using LuxTravel.Model.Dtos;
 using MediatR;
 using CommonFunctionality.Helper;
 using LuxTravel.Model.BaseRepository;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace LuxTravel.Api.Core.Handlers.Hotel
 {
     public class HotelQueryHandler : RequestHandlerBase,
-        IRequestHandler<GetAllHotelsQuery, PagedList<HotelDto>>,
-        IRequestHandler<GetDetailHotelQuery, HotelDto>
+        IRequestHandler<GetAllHotelsQuery, IEnumerable<HotelDto>>,
+        IRequestHandler<GetDetailHotelQuery, HotelDetailDto>
 
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
@@ -23,41 +26,60 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
         }
 
 
-        public async Task<PagedList<HotelDto>> Handle(GetAllHotelsQuery request, CancellationToken cancellationToken)
+        public  Task<IEnumerable<HotelDto>> Handle(GetAllHotelsQuery request, CancellationToken cancellationToken)
         {
-            List<Guid> locationIds = new List<Guid>();
-            IEnumerable<Model.Entities.Hotel> data = null;
-            if (request.CityId.HasValue)
+            string listRoomTypes = string.Empty;
+            var parameters = new List<SqlParameter>();
+            string query = $"EXEC [dbo].[GetListHotel] @CitytId ='{request.CityId}' ";
+            if (request.RoomTypeIds != null && request.RoomTypeIds.Any())
             {
-                var locations = await _unitOfWork.HotelLocationRepository.GetMany(r => r.CityId == request.CityId);
-                locationIds = locations.Select(r => r.Id).ToList();
-                data = await _unitOfWork.HotelRepository.GetMany(r => locationIds.Contains(r.HotelLocationId.Value));
+                listRoomTypes = string.Join(",", request.RoomTypeIds.Select(r => r));
+                query = query + $", @RoomTypeIds={listRoomTypes} ";
 
             }
-            else
-            {
-                data = await _unitOfWork.HotelRepository.GetAll();
-            }
+            
+            query = query + $", @Rating = {request.Rating}, @GuestCount = {request.GuestCount}";
+            var data = _unitOfWork.Context.SpGetListHotel
+                .FromSqlInterpolated($"EXEC [dbo].[GetListHotel] @CitytId = {request.CityId}, @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}").ToList();
 
+            var records = _mapper.Map<IEnumerable<HotelDto>>(data);
 
-            var records = data.Select(r => new HotelDto()
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Phone = r.Phone,
-                Email = r.Email,
-                Url = r.Url
-            }).AsQueryable();
-            var pagedList = PagedList<HotelDto>.ToPagedList(records, request.PageIndex, request.PageSize);
-            return pagedList;
+            return Task.FromResult(records);
         }
 
-
-        public async Task<HotelDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
+        private async Task GetSmallestPrice(Guid hotelId)
         {
-            var entity = await _unitOfWork.HotelRepository.GetByIdAsync(request.Id);
+            var rooms = await _unitOfWork.RoomRepository.GetMany(r => r.HotelId == hotelId);
 
-            return _mapper.Map<HotelDto>(entity);
+            //var smallestPrice = rooms.Min(r=>r.Pr)
+
+        }
+
+        public async Task<HotelDetailDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
+        {
+            //Get all hotel belong to location which have respective city
+            var selectedHotel = await _unitOfWork.HotelRepository.GetByIdAsync(request.Id);
+            if (selectedHotel != null)
+            {
+                //Get rooms
+                var rooms = _unitOfWork.Context.SpGetRoomByHotels
+                    .FromSqlInterpolated($"GetRoomByHotelId {selectedHotel.Id} ").ToList();
+
+                var result =
+                    new HotelDetailDto()
+                    {
+                        Id = selectedHotel.Id,
+                        DateFrom = request.DateFrom,
+                        DateTo = request.DateTo,
+                        GuestId = GuestId,
+                        GuestCount = request.GuestCount,
+                        HotelName = selectedHotel.Name,
+                        AvailableRooms = _mapper.Map<List<AvailableRoomDto>>(rooms)
+                    };
+
+                return result;
+            }
+            return new HotelDetailDto();
         }
     }
 }

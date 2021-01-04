@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LuxTravel.Model.Entities
 {
     public class RoomPrice
     {
         public System.Guid Id { get; set; }
-        public System.Guid Room_Id { get; set; }
-        public decimal Rate { get; set; }
+        public decimal Price { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public int? CurrencySettingId { get; set; }

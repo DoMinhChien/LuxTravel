@@ -7,10 +7,13 @@ using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LuxTravel.Api.Core.Handlers.MasterData
 {
-    public class MasterDataHandler : RequestHandlerBase, IRequestHandler<GetAllCitiesQuery, IEnumerable<SelectedObjectDto>>
+    public class MasterDataHandler : RequestHandlerBase, 
+                                     IRequestHandler<GetAllCitiesQuery, IEnumerable<SelectedObjectDto>>,
+                                     IRequestHandler<GetAllRoomTypesQuery, IEnumerable<RoomTypeDto>>
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
         public MasterDataHandler(IServiceProvider serviceProvider) : base(serviceProvider)
@@ -25,6 +28,12 @@ namespace LuxTravel.Api.Core.Handlers.MasterData
             return _mapper.Map<IEnumerable<SelectedObjectDto>>(data);
 
         }
- 
+
+        public async Task<IEnumerable<RoomTypeDto>> Handle(GetAllRoomTypesQuery request, CancellationToken cancellationToken)
+        {
+            var data = await  _unitOfWork.RoomTypeRepository.GetAll();
+            return _mapper.Map<IEnumerable<RoomTypeDto>>(data);
+            
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LuxTravel.Model.Entites;
 
 namespace LuxTravel.Model.Entities
 {
@@ -16,7 +17,13 @@ namespace LuxTravel.Model.Entities
         public DateTime CreatedOn { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-      //  public virtual ICollection<Booking> Bookings { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public string Email { get; set; }
+        public bool Male { get; set; }
+
+        public virtual ICollection<Booking> Bookings { get; set; }
+        public virtual ICollection<HotelRating> Ratings { get; set; }
 
     }
 }

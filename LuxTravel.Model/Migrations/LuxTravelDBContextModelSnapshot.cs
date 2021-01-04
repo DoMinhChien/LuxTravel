@@ -15,9 +15,88 @@ namespace LuxTravel.Model.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("LuxTravel.Model.Entites.HotelRating", b =>
+                {
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Point")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("HotelId", "RatorId");
+
+                    b.HasIndex("RatorId");
+
+                    b.ToTable("HotelRatings");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entites.StoreProcedures.SPGetRoomByHotel", b =>
+                {
+                    b.Property<Guid>("RoomId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Bed")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RoomType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoomId");
+
+                    b.ToTable("SpGetRoomByHotels");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entites.StoreProcedures.SpGetListHotel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AvgRating")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Reviews")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SmallestPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpGetListHotel");
+                });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.Booking", b =>
                 {
@@ -234,10 +313,16 @@ namespace LuxTravel.Model.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Male")
                         .HasColumnType("bit");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -248,6 +333,12 @@ namespace LuxTravel.Model.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -410,13 +501,10 @@ namespace LuxTravel.Model.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Rate")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Room_Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ToDate")
@@ -497,6 +585,25 @@ namespace LuxTravel.Model.Migrations
                     b.ToTable("Wards");
                 });
 
+            modelBuilder.Entity("LuxTravel.Model.Entites.HotelRating", b =>
+                {
+                    b.HasOne("LuxTravel.Model.Entities.Hotel", "Hotel")
+                        .WithMany("Ratings")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LuxTravel.Model.Entities.Guest", "Rator")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("Rator");
+                });
+
             modelBuilder.Entity("LuxTravel.Model.Entities.Booking", b =>
                 {
                     b.HasOne("LuxTravel.Model.Entities.BookingStatus", "BookingStatus")
@@ -506,7 +613,7 @@ namespace LuxTravel.Model.Migrations
                         .IsRequired();
 
                     b.HasOne("LuxTravel.Model.Entities.Guest", "Guest")
-                        .WithMany()
+                        .WithMany("Bookings")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -516,6 +623,12 @@ namespace LuxTravel.Model.Migrations
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BookingStatus");
+
+                    b.Navigation("Guest");
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.BookingDetail", b =>
@@ -525,6 +638,8 @@ namespace LuxTravel.Model.Migrations
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Booking");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.CityDistrictMapping", b =>
@@ -540,6 +655,10 @@ namespace LuxTravel.Model.Migrations
                         .HasForeignKey("DistrictId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("District");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.DistrictWardMapping", b =>
@@ -555,6 +674,10 @@ namespace LuxTravel.Model.Migrations
                         .HasForeignKey("WardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("District");
+
+                    b.Navigation("Ward");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.Hotel", b =>
@@ -562,6 +685,8 @@ namespace LuxTravel.Model.Migrations
                     b.HasOne("LuxTravel.Model.Entities.HotelLocation", "HotelLocation")
                         .WithMany()
                         .HasForeignKey("HotelLocationId");
+
+                    b.Navigation("HotelLocation");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.HotelLocation", b =>
@@ -598,6 +723,10 @@ namespace LuxTravel.Model.Migrations
                         .HasForeignKey("RoomTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("RoomType");
                 });
 
             modelBuilder.Entity("LuxTravel.Model.Entities.RoomPrice", b =>
@@ -609,6 +738,72 @@ namespace LuxTravel.Model.Migrations
                     b.HasOne("LuxTravel.Model.Entities.Room", "Room")
                         .WithMany("RoomPrices")
                         .HasForeignKey("RoomId");
+
+                    b.Navigation("CurrencySetting");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.Booking", b =>
+                {
+                    b.Navigation("BookingDetails");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.BookingStatus", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.City", b =>
+                {
+                    b.Navigation("CityDistrictMappings");
+
+                    b.Navigation("HotelLocations");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.District", b =>
+                {
+                    b.Navigation("CityDistrictMappings");
+
+                    b.Navigation("DistrictWardMappings");
+
+                    b.Navigation("HotelLocations");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.Guest", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.Hotel", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.Room", b =>
+                {
+                    b.Navigation("RoomPrices");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.RoomStatus", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.RoomType", b =>
+                {
+                    b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("LuxTravel.Model.Entities.Ward", b =>
+                {
+                    b.Navigation("DistrictWardMappings");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,6 +6,7 @@ namespace LuxTravel.Model.Entities
 {
     public class BookingDetail
     {
+        
         [Key, Column(Order = 1)]
 
         public Guid BookingId { get; set; }
@@ -16,6 +17,7 @@ namespace LuxTravel.Model.Entities
         public bool IsActive { get; set; }
         [ForeignKey("BookingId")]
         public virtual Booking  Booking { get; set; }
+
         //[ForeignKey("RoomId")]
 
         //public virtual Room Room { get; set; }
