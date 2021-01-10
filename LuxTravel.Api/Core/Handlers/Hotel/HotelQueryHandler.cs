@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,9 +7,7 @@ using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
 using MediatR;
-using CommonFunctionality.Helper;
 using LuxTravel.Model.BaseRepository;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace LuxTravel.Api.Core.Handlers.Hotel
@@ -48,21 +45,12 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             {
                 request.PageSize = 10;
             }
-            var data = _unitOfWork.Context.SpGetListHotel.FromSqlInterpolated($@"EXEC [dbo].[GetListHotel] @CityId = {request.CityId},  @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}, @PageIndex = {request.PageIndex}, @PageSize = {request.PageSize}, @Sort = {request.Sort}").ToList();
+            var data = _unitOfWork.Context.SpGetListHotel.FromSqlInterpolated($@"EXEC [dbo].[GetListHotel] @CityId = {request.CityId},  @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}, @PriceFrom = {request.PriceFrom}, @PriceTo = {request.PriceTo}, @PageIndex = {request.PageIndex}, @PageSize = {request.PageSize}, @Sort = {request.Sort}").ToList();
 
             var records = _mapper.Map<IEnumerable<HotelDto>>(data);
 
             return Task.FromResult(records);
         }
-
-        private async Task GetSmallestPrice(Guid hotelId)
-        {
-            var rooms = await _unitOfWork.RoomRepository.GetMany(r => r.HotelId == hotelId);
-
-            //var smallestPrice = rooms.Min(r=>r.Pr)
-
-        }
-
         private async Task<List<string>> GetHotelImages(Guid id)
         {
             var images = await _unitOfWork.PhotoRepository.GetMany(r => r.ObjectId == id);

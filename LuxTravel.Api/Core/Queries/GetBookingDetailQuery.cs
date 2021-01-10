@@ -11,6 +11,6 @@ namespace LuxTravel.Api.Core.Queries
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public int GuestCount { get; set; }
-        public SelectedRoomDto SelectedRoom { get; set; }
+        public Guid RoomId { get; set; }
     }
 }

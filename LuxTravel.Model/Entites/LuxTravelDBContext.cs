@@ -24,7 +24,6 @@ namespace LuxTravel.Model.Entites
         public virtual DbSet<HotelLocation> HotelLocations { get; set; }
 
         public virtual DbSet<Hotel> Hotels { get; set; }
-        public virtual DbSet<RoomPrice> RoomPrices { get; set; }
         public virtual DbSet<RoomStatus> RoomStatuses { get; set; }
         public virtual DbSet<RoomType> RoomTypes { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }

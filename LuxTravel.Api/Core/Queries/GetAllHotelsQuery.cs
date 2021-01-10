@@ -12,6 +12,8 @@ namespace LuxTravel.Api.Core.Queries
         public int GuestCount { get; set; }
         public Guid[] RoomTypeIds { get; set; }
         public int Rating { get; set; }
+        public decimal PriceFrom { get; set; }
+        public decimal PriceTo { get; set; }
 
     }
 }

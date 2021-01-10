@@ -14,9 +14,10 @@ namespace LuxTravel.Model.Entities
         public int RoomNumber { get; set; }
         public Guid RoomStatusId { get; set; }
         public virtual Hotel Hotel { get; set; }
+
+        public Decimal CurrentPrice { get; set; }   
         public  virtual RoomType RoomType { get; set; }
         //public virtual ICollection<BookingDetail> RoomDetails { get; set; }
-        public virtual ICollection<RoomPrice> RoomPrices { get; set; }
 
 
 

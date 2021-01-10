@@ -15,7 +15,6 @@ namespace LuxTravel.Model.BaseRepository
         private BaseRepository<BookingDetail> bookingDetailRepository;
         private BaseRepository<Room> roomRepository;
         private BaseRepository<CurrencySetting> currencySettingRepository;
-        private BaseRepository<RoomPrice> roomPriceRepository;
         private BaseRepository<RoomType> roomTypeRepository;
         private BaseRepository<Guest> guestRepository;
         private BaseRepository<Photo> photoRepository;
