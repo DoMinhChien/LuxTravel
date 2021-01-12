@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommonFunctionality.Api;
+using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
-using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
 
 namespace LuxTravel.Api.Controllers
@@ -14,8 +14,6 @@ namespace LuxTravel.Api.Controllers
 
     public class MasterDataController : ApiControllerBase
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
-
 
         public MasterDataController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
@@ -35,5 +33,11 @@ namespace LuxTravel.Api.Controllers
             return await SendRequestAsync(model);
         }
 
+        [HttpPost("Location")]
+        public async Task<bool> InsertLocation([FromBody] CreateHotelLocationCommand model)
+        {
+
+            return await SendRequestAsync(model);
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LuxTravel.Model.Entities
 {
@@ -16,9 +14,8 @@ namespace LuxTravel.Model.Entities
         public virtual Hotel Hotel { get; set; }
 
         public Decimal CurrentPrice { get; set; }   
+        public int Quantity { get; set; }
         public  virtual RoomType RoomType { get; set; }
-        //public virtual ICollection<BookingDetail> RoomDetails { get; set; }
-
 
 
     }

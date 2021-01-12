@@ -9,7 +9,7 @@ using LuxTravel.Model.Dtos;
 using MediatR;
 using LuxTravel.Model.BaseRepository;
 using Microsoft.EntityFrameworkCore;
-
+using static System.FormattableString;
 namespace LuxTravel.Api.Core.Handlers.Hotel
 {
     public class HotelQueryHandler : RequestHandlerBase,
@@ -45,7 +45,7 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             {
                 request.PageSize = 10;
             }
-            var data = _unitOfWork.Context.SpGetListHotel.FromSqlInterpolated($@"EXEC [dbo].[GetListHotel] @CityId = {request.CityId},  @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}, @PriceFrom = {request.PriceFrom}, @PriceTo = {request.PriceTo}, @PageIndex = {request.PageIndex}, @PageSize = {request.PageSize}, @Sort = {request.Sort}").ToList();
+             var data = _unitOfWork.Context.SpGetListHotel.FromSqlInterpolated($@"EXEC [dbo].[GetListHotel] @CityId = {request.CityId},  @RoomTypeIds={listRoomTypes} , @Rating = {request.Rating}, @GuestCount = {request.GuestCount}, @PriceFrom = {request.PriceFrom}, @PriceTo = {request.PriceTo}, @PageIndex = {request.PageIndex}, @PageSize = {request.PageSize}, @Sort = {request.Sort}").ToList();
 
             var records = _mapper.Map<IEnumerable<HotelDto>>(data);
 

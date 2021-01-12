@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
+using LuxTravel.Model.Entites;
 using LuxTravel.Model.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace LuxTravel.Api.Core.Handlers.Hotel
 {
     public class HotelCommandHandler : RequestHandlerBase,
-        IRequestHandler<CreateHotelCommand, bool>
+        IRequestHandler<CreateHotelCommand, bool>,
+        IRequestHandler<CreateHotelRatingCommand, bool>
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HotelCommandHandler(IServiceProvider serviceProvider) : base(serviceProvider)
+
+        public HotelCommandHandler(IServiceProvider serviceProvider,
+            IHttpContextAccessor httpContextAccessor) : base(serviceProvider)
         {
-
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
@@ -30,6 +37,21 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             _unitOfWork.HotelRepository.Insert(entity);
             _unitOfWork.SaveChanges();
             return true;
+        }
+
+        public Task<bool> Handle(CreateHotelRatingCommand request, CancellationToken cancellationToken)
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var entity = new HotelRating()
+            {
+                HotelId = request.HotelId,
+                RatorId = new Guid(userId),
+                Point = request.Point
+
+            };
+            _unitOfWork.HotelRatingRepository.Insert(entity);
+            _unitOfWork.SaveChanges();
+            return Task.FromResult(true);
         }
 
         private async Task<Guid> InsertLocation(HotelLocationDto location)

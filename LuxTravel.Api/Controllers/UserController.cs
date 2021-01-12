@@ -37,7 +37,6 @@ namespace LuxTravel.Api.Controllers
         [HttpGet("current-user")]
         public  Task<UserDto> CurrentUser()
         {
-            var a = this.User.Claims.ToList();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {

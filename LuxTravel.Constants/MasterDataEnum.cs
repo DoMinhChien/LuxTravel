@@ -26,4 +26,20 @@ namespace LuxTravel.Constants
         District = 2,
         Ward = 3
     }
+
+    public enum RoomTypeEnum
+    {
+        Single = 1,
+        Double = 2,
+        Twin = 3
+    }
+    public class RoomTypeEnumMasterData
+    {
+        public static Dictionary<int, Guid> StatusValue = new Dictionary<int, Guid>()
+        {
+            { (int)RoomTypeEnum.Single, Guid.Parse("A72D6BA2-6632-4835-8A46-AA9C6BAA4529")},
+            { (int)RoomTypeEnum.Double, Guid.Parse("96FF0888-5C34-4284-BEEE-250C06FBEBE6")},
+            { (int)RoomTypeEnum.Twin, Guid.Parse("149B1CF7-DF1F-4EF5-9D0B-5B640358D31D")}
+        };
+    }
 }

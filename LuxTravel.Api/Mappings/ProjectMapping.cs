@@ -33,7 +33,7 @@ namespace LuxTravel.Api.Mappings
         {
             CreateMap<CreateHotelCommand, Hotel>();
             CreateMap<CreateBookingCommand, Booking>();
-
+            CreateMap<CreateRoomCommand, Room>();
             CreateMap<HotelDto, Hotel>();
             CreateMap<HotelLocationDto, HotelLocation>().ForMember(dst=>dst.Id, s=>s.MapFrom( src=> Guid.NewGuid()));
 

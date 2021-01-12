@@ -17,6 +17,7 @@ namespace LuxTravel.Model.Entities
         public DateTime CreatedOn { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        public string Password { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string Email { get; set; }

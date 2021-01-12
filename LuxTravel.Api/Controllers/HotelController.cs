@@ -38,5 +38,13 @@ namespace LuxTravel.Api.Controllers
 
             return result;
         }
+        [HttpPost("api/hotel/rating")]
+        public async Task<bool> RateHotel(CreateHotelRatingCommand command)
+        {
+            var result = await SendRequestAsync(command);
+
+            return result;
+        }
+        
     }
 }

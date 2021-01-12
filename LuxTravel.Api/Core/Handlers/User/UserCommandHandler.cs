@@ -55,7 +55,7 @@ namespace LuxTravel.Api.Core.Handlers.User
             var user = entity.FirstOrDefault();
             if (user != null)
             {
-                //LoginValidation(user, request.Password);
+                LoginValidation(user, request.Password);
                 var claims = new[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -101,26 +101,28 @@ namespace LuxTravel.Api.Core.Handlers.User
                 throw new BusinessException(Constants.Constants.NOT_FOUND_CODE);
             }
 
-            if (!VerifyPasswordHash(password, entity.PasswordHash, entity.PasswordSalt))
+            if (!VerifyPasswordHash(password , entity.Password, entity.PasswordHash, entity.PasswordSalt))
             { 
             throw new BusinessException(Constants.Constants.NOT_FOUND_CODE);
             }
         }
-        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
+        
+        private static bool VerifyPasswordHash(string password, string userPassword, byte[] storedHash, byte[] storedSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+            
+            //if (password == null) throw new ArgumentNullException("password");
+            //if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
 
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != storedHash[i]) return false;
-                }
-            }
+            //using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            //{
+            //    var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            //    for (int i = 0; i < computedHash.Length; i++)
+            //    {
+            //        if (computedHash[i] != storedHash[i]) return false;
+            //    }
+            //}
 
-            return true;
+            return password.Equals(userPassword);
         }
     }
 }
