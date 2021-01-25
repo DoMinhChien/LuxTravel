@@ -4,14 +4,16 @@ using LuxTravel.Model.Entites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LuxTravel.Model.Migrations
 {
     [DbContext(typeof(LuxTravelDBContext))]
-    partial class LuxTravelDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210123055401_update-payment-intent")]
+    partial class updatepaymentintent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

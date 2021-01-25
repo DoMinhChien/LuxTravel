@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommonFunctionality.Api;
 using LuxTravel.Api.Core.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuxTravel.Api.Controllers
 {
+    [Authorize]
+
     public class RoomController : ApiControllerBase
     {
         public RoomController(IServiceProvider serviceProvider) : base(serviceProvider)

@@ -44,7 +44,6 @@ namespace LuxTravel.Api
                         sqlServerOptions => sqlServerOptions.CommandTimeout(60)));
             }
 
-            //services.BuildServiceProvider().GetService<LuxTravelDBContext>().Database.Migrate();
 
 
             services.AddScoped( typeof(BaseRepository<>));

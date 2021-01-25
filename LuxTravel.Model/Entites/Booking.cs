@@ -18,7 +18,7 @@ namespace LuxTravel.Model.Entities
         public System.DateTime CreatedOn { get; set; }
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
-
+        public string PaymentId { get; set; }
         public virtual BookingStatus BookingStatus { get; set; }
         public virtual Guest Guest { get; set; }
         public virtual Hotel Hotel { get; set; }

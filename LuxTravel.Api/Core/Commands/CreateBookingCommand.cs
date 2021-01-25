@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LuxTravel.Api.Core.Commands
 {
-    public class CreateBookingCommand : IRequest<bool>
+    public class CreateBookingCommand : IRequest<PaymentConfirmDto>
     {
         public Guid HotelId { get; set; }
         public DateTime  DateFrom { get; set; }

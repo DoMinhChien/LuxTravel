@@ -27,6 +27,8 @@ namespace LuxTravel.Api.Mappings
             CreateMap<SPGetRoomByHotel, AvailableRoomDto>();
             CreateMap<SpGetListHotel, HotelDto>();
             CreateMap<SelectedRoomDto, AvailableRoomDto>();
+            CreateMap<CreateBookingCommand, BookingCalculationDto>();
+            
         }
 
         private void CreateMapForEntity()

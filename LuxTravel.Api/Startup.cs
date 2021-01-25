@@ -1,25 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
 using CommonFunctionality.Core;
+using LuxTravel.Api.Core.Service;
+using LuxTravel.Api.Core.Services;
 using LuxTravel.Api.Mappings;
 using LuxTravel.Model;
-using LuxTravel.Model.Entites;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -52,7 +48,7 @@ namespace LuxTravel.Api
             }));
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sample API", Version = "version 1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lux Travel API", Version = "version 1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
@@ -97,11 +93,16 @@ namespace LuxTravel.Api
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddControllers();
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IBookingService, BookingService>();
             services.AddScoped(typeof(RequestHandlerBase));
             services.AddScoped(typeof(Cloudinary));
             ContainerSetup.Setup(services, Configuration);
-
+            // If using Kestrel:
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,7 +113,7 @@ namespace LuxTravel.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Family tree API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "LuxTravel API");
             });
 
             app.UseCors(options => options.AllowAnyOrigin());

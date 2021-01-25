@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
 using LuxTravel.Api.Core.Queries;
+using LuxTravel.Api.Core.Services;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
 using LuxTravel.Model.Migrations;
@@ -18,11 +19,14 @@ namespace LuxTravel.Api.Core.Handlers.Booking
         IRequestHandler<GetBookingDetailQuery, BookingDto>
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
+        private readonly IBookingService _bookingService;
 
-        public BookingQueryHandler(IServiceProvider serviceProvider) : base(serviceProvider)
+        public BookingQueryHandler(IServiceProvider serviceProvider,
+            IBookingService bookingService) : base(serviceProvider)
         {
+            _bookingService = bookingService;
         }
-        public Task<BookingDto> Handle(GetBookingDetailQuery request, CancellationToken cancellationToken)
+        public async Task<BookingDto> Handle(GetBookingDetailQuery request, CancellationToken cancellationToken)
         {
             if (request.RoomId != Guid.Empty)
             {
@@ -35,10 +39,10 @@ namespace LuxTravel.Api.Core.Handlers.Booking
                 var hotel = _unitOfWork.HotelRepository.GetById(request.HotelId);
 
                 //Get room quantity base on Guest count
-                int roomCount = request.GuestCount / selectedRoom.Capacity;
                 var diffNightTimeSpan = request.DateTo.Subtract(request.DateFrom);  
                 var nightCount =(int)diffNightTimeSpan.TotalDays;
-                var totals = nightCount * roomCount;
+                var input = _mapper.Map<BookingCalculationDto>(request);
+                    var totals =await _bookingService.CalculateTotalMoney(input, selectedRoom);
                  var result = new BookingDto()
                  {
                      HotelId =  request.HotelId,
@@ -46,12 +50,12 @@ namespace LuxTravel.Api.Core.Handlers.Booking
                      DateFrom = request.DateFrom,
                      DateTo =  request.DateTo,
                      NightCount =  nightCount,
-                     RoomCount = roomCount,
+                     RoomCount = request.GuestCount / selectedRoom.Capacity,
                      GuestCount = request.GuestCount,
                      SelectedRoom = _mapper.Map<AvailableRoomDto>(selectedRoom),
                      Totals =  totals * selectedRoom.Price
                  };
-                 return Task.FromResult(result);
+                 return result;
 
 
             }

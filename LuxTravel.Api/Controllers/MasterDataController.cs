@@ -6,6 +6,7 @@ using CommonFunctionality.Api;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LuxTravel.Api.Controllers
 {

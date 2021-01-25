@@ -7,9 +7,12 @@ using CommonFunctionality.Helper;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LuxTravel.Api.Controllers
 {
+    [Authorize]
+
     public class HotelController : ApiControllerBase
     {
 
@@ -17,13 +20,13 @@ namespace LuxTravel.Api.Controllers
         {
 
         }
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("api/hotels")]
         public async Task<IEnumerable<HotelDto>> Get([FromQuery] GetAllHotelsQuery model)
         {
             return await SendRequestAsync(model);
         }
-
+        [AllowAnonymous]
         [HttpGet("api/hotel/{id}")]
         public async Task<HotelDetailDto> Get(Guid id)
         {
