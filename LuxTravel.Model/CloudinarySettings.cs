@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LuxTravel.Model
+﻿namespace LuxTravel.Model
 {
     public class CloudinarySettings
     {

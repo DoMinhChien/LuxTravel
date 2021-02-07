@@ -30,7 +30,7 @@ namespace LuxTravel.Api.Controllers
                 return errorResult;
             }
 
-            return new ErrorResult(); // Your error model
+            return new ErrorResult(){ ErrorResponse =  new ErrorResponse(){ Message = exception.Message}}; // Your error model
         }
 
         private HttpStatusCode GetStatusCode(string code)

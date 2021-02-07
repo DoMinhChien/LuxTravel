@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LuxTravel.Model": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT_VARIABLE": "Production"
+      }
+    }
+  }
+}
