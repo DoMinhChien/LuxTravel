@@ -39,8 +39,6 @@ namespace LuxTravel.Model.Entites
 
         public virtual DbSet<ViewLocationDetail> ViewLocationDetails { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { 
           // string connectionStr = "Database=LuxTravelManagement;Trusted_Connection=True;";
