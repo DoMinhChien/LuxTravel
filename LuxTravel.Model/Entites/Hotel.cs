@@ -18,6 +18,8 @@ namespace LuxTravel.Model.Entities
         public Guid? ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public Guid? HotelLocationId { get; set; }
+        public string EmbedUrl { get; set; }
+        public int Reviewers { get; set; }
         public virtual ICollection<Booking> Bookings { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
         public virtual HotelLocation HotelLocation { get; set; }

@@ -9,7 +9,6 @@ using LuxTravel.Model.Dtos;
 using MediatR;
 using LuxTravel.Model.BaseRepository;
 using Microsoft.EntityFrameworkCore;
-using static System.FormattableString;
 namespace LuxTravel.Api.Core.Handlers.Hotel
 {
     public class HotelQueryHandler : RequestHandlerBase,
@@ -83,6 +82,18 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
             }
             return result;
         }
+
+        private string GetDetailLocation(Guid locationId)
+        {
+            var data = _unitOfWork.Context.ViewLocationDetails.FromSqlInterpolated(
+                $"SELECT * FROM dbo.GetDetailLocation WHERE LocationId = {locationId}").FirstOrDefault();
+            if (data == null)
+            {
+                return string.Empty;
+            }
+
+            return $" {data.WardName}, {data.DistrictName}, {data.CityName}";
+        }
         public async Task<HotelDetailDto> Handle(GetDetailHotelQuery request, CancellationToken cancellationToken)
         {
             //Get all hotel belong to location which have respective city
@@ -93,6 +104,9 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
                 var rooms = await GetRoomForHotel(selectedHotel.Id);
                 //Get Images for hotel
                 var imageUrls = await GetHotelImages(selectedHotel.Id);
+                // Rating
+                var ratings = await _unitOfWork.HotelRatingRepository.GetMany(r => r.HotelId == selectedHotel.Id);
+                var avgRating = ratings.Average(r => r.Point);
                 var result =
                     new HotelDetailDto()
                     {
@@ -103,7 +117,13 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
                         GuestCount = request.GuestCount,
                         HotelName = selectedHotel.Name,
                         AvailableRooms = rooms,
-                        ImageUrls = imageUrls
+                        ImageUrls = imageUrls,
+                        Url = selectedHotel.Url,
+                        Email = selectedHotel.Email,
+                        AvgRating = avgRating,
+                        Location = selectedHotel.HotelLocationId.HasValue ? GetDetailLocation(selectedHotel.HotelLocationId.Value) : string.Empty,
+                        EmbedUrl = selectedHotel.EmbedUrl,
+                        Reviewers =  selectedHotel.Reviewers
                     };
 
                 return result;

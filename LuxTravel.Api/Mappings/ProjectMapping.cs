@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using LuxTravel.Api.Core.Commands;
+using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
 using LuxTravel.Model.Entites.StoreProcedures;
 using LuxTravel.Model.Entities;
@@ -28,7 +29,8 @@ namespace LuxTravel.Api.Mappings
             CreateMap<SpGetListHotel, HotelDto>();
             CreateMap<SelectedRoomDto, AvailableRoomDto>();
             CreateMap<CreateBookingCommand, BookingCalculationDto>();
-            
+            CreateMap<GetBookingDetailQuery, BookingCalculationDto>();
+
         }
 
         private void CreateMapForEntity()

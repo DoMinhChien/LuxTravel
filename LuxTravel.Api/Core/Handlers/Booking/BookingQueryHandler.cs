@@ -16,7 +16,9 @@ using Microsoft.EntityFrameworkCore;
 namespace LuxTravel.Api.Core.Handlers.Booking
 {
     public class BookingQueryHandler : RequestHandlerBase,
-        IRequestHandler<GetBookingDetailQuery, BookingDto>
+        IRequestHandler<GetBookingDetailQuery, BookingDto>,
+        IRequestHandler<GetBookingHistoryQuery, BookingHistoryDto>
+
     {
         private readonly UnitOfWork _unitOfWork = new UnitOfWork();
         private readonly IBookingService _bookingService;
@@ -56,14 +58,16 @@ namespace LuxTravel.Api.Core.Handlers.Booking
                      Totals =  totals * selectedRoom.Price
                  };
                  return result;
-
+                    
 
             }
 
             return null;
         }
 
-
-
+        public Task<BookingHistoryDto> Handle(GetBookingHistoryQuery request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

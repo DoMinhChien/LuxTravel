@@ -43,5 +43,6 @@ namespace LuxTravel.Api.Controllers
             return result;
         }
 
+
     }
 }

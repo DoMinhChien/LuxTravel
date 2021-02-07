@@ -30,13 +30,29 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
 
         public async Task<bool> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
         {
+            var generator = new RandomGenerator();
+        
             var entity = _mapper.Map<Model.Entities.Hotel>(request);
             var locationId = await InsertLocation(request.Location);
             entity.HotelLocationId = locationId;
-
+            entity.Reviewers = generator.RandomNumber(1, 100);
             _unitOfWork.HotelRepository.Insert(entity);
             _unitOfWork.SaveChanges();
             return true;
+        }
+
+        public class RandomGenerator
+        {
+            // Instantiate random number generator.  
+            // It is better to keep a single Random instance 
+            // and keep using Next on the same instance.  
+            private readonly Random _random = new Random();
+
+            // Generates a random number within a range.      
+            public int RandomNumber(int min, int max)
+            {
+                return _random.Next(min, max);
+            }
         }
 
         public Task<bool> Handle(CreateHotelRatingCommand request, CancellationToken cancellationToken)

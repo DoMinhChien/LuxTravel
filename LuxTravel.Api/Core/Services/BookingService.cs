@@ -35,5 +35,10 @@ namespace LuxTravel.Api.Core.Services
             
             return Task.FromResult(totals);
         }
+
+        public  Task<BookingHistoryDto> GetBookingHistories(Guid guestId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
