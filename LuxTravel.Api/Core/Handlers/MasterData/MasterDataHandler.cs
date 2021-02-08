@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LuxTravel.Api.Core.Handlers.MasterData
 {

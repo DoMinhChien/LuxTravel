@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Services;
 using LuxTravel.Constants;

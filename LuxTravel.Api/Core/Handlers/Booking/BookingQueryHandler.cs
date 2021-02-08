@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Api.Core.Services;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Dtos;
-using LuxTravel.Model.Migrations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,8 +57,6 @@ namespace LuxTravel.Api.Core.Handlers.Booking
                      Totals =  totals * selectedRoom.Price
                  };
                  return result;
-                    
-
             }
 
             return null;

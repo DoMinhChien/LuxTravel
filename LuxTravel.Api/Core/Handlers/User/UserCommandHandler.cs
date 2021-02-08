@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -7,14 +6,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.BaseRepository;
-using LuxTravel.Model.Dtos;
 using LuxTravel.Model.Entities;
 using MediatR;
 using Microsoft.IdentityModel.Tokens;
-using LuxTravel.Constants;
 using Microsoft.Extensions.Configuration;
 namespace LuxTravel.Api.Core.Handlers.User
 {
@@ -100,26 +98,26 @@ namespace LuxTravel.Api.Core.Handlers.User
                 throw new BusinessException(Constants.Constants.NOT_FOUND_CODE);
             }
 
-            if (!VerifyPasswordHash(password , entity.Password, entity.PasswordHash, entity.PasswordSalt))
-            { 
-            throw new BusinessException(Constants.Constants.NOT_FOUND_CODE);
-            }
+            //if (!VerifyPasswordHash(password , entity.Password, entity.PasswordHash, entity.PasswordSalt))
+            //{ 
+            //throw new BusinessException(Constants.Constants.NOT_FOUND_CODE);
+            //}
         }
         
         private static bool VerifyPasswordHash(string password, string userPassword, byte[] storedHash, byte[] storedSalt)
         {
-            
-            //if (password == null) throw new ArgumentNullException("password");
-            //if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
 
-            //using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            //{
-            //    var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            //    for (int i = 0; i < computedHash.Length; i++)
-            //    {
-            //        if (computedHash[i] != storedHash[i]) return false;
-            //    }
-            //}
+            if (password == null) throw new ArgumentNullException("password");
+            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
+
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != storedHash[i]) return false;
+                }
+            }
 
             return password.Equals(userPassword);
         }

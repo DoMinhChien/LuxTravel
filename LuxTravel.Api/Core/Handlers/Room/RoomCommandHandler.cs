@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Commands;
-using LuxTravel.Constants;
 using LuxTravel.Model.BaseRepository;
 using MediatR;
 

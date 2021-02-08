@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using CloudinaryDotNet;
-using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Service;
 using LuxTravel.Api.Core.Services;
 using LuxTravel.Api.Mappings;

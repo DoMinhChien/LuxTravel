@@ -14,11 +14,8 @@ namespace LuxTravel.Api.Controllers
     [Authorize]
     public class BookingController : ApiControllerBase
     {
-        private readonly IPaymentService _paymentService;
-        public BookingController(IServiceProvider serviceProvider,
-            IPaymentService paymentService) : base(serviceProvider)
+        public BookingController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _paymentService = paymentService;
         }
         [HttpGet("detail")]
         public async Task<BookingDto> Get([FromQuery] GetBookingDetailQuery model)

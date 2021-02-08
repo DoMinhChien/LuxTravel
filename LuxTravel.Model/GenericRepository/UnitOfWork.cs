@@ -1,24 +1,24 @@
 ﻿using System;
 using LuxTravel.Model.Entites;
 using LuxTravel.Model.Entities;
-using LuxTravel.Model.GenericRepository;
+using  CommonFunctionality.Core.GenericRepository;
 
 namespace LuxTravel.Model.BaseRepository
 {
     public class UnitOfWork : IDisposable
     {
-        private LuxTravelDBContext context = new LuxTravelDBContext();
-        private BaseRepository<City> cityRepository;
-        private BaseRepository<Hotel> hotelRepository;
-        private BaseRepository<HotelLocation> hotelLocationRepository;
-        private BaseRepository<Booking> bookingRepository;
-        private BaseRepository<BookingDetail> bookingDetailRepository;
-        private BaseRepository<Room> roomRepository;
-        private BaseRepository<CurrencySetting> currencySettingRepository;
-        private BaseRepository<RoomType> roomTypeRepository;
-        private BaseRepository<Guest> guestRepository;
-        private BaseRepository<Photo> photoRepository;
-        private BaseRepository<HotelRating> hotelRatingRepository;
+        public LuxTravelDBContext context = new LuxTravelDBContext();
+        private BaseRepository<City, LuxTravelDBContext> cityRepository;
+        private BaseRepository<Hotel, LuxTravelDBContext> hotelRepository;
+        private BaseRepository<HotelLocation, LuxTravelDBContext> hotelLocationRepository;
+        private BaseRepository<Booking, LuxTravelDBContext> bookingRepository;
+        private BaseRepository<BookingDetail, LuxTravelDBContext> bookingDetailRepository;
+        private BaseRepository<Room, LuxTravelDBContext> roomRepository;
+        private BaseRepository<CurrencySetting, LuxTravelDBContext> currencySettingRepository;
+        private BaseRepository<RoomType, LuxTravelDBContext> roomTypeRepository;
+        private BaseRepository<Guest, LuxTravelDBContext> guestRepository;
+        private BaseRepository<Photo, LuxTravelDBContext> photoRepository;
+        private BaseRepository<HotelRating, LuxTravelDBContext> hotelRatingRepository;
 
         public LuxTravelDBContext Context
         {
@@ -36,138 +36,138 @@ namespace LuxTravel.Model.BaseRepository
         /// <summary>
         /// Implementation
         /// </summary>
-        public BaseRepository<City> CityRepository
+        public BaseRepository<City, LuxTravelDBContext> CityRepository
         {
             get
             {
 
                 if (this.cityRepository == null)
                 {
-                    this.cityRepository = new BaseRepository<City>(context);
+                    this.cityRepository = new BaseRepository<City, LuxTravelDBContext>(context);
                 }
                 return cityRepository;
             }
         }
-        public BaseRepository<Hotel> HotelRepository
+        public BaseRepository<Hotel, LuxTravelDBContext> HotelRepository
         {
             get
             {
 
                 if (this.hotelRepository == null)
                 {
-                    this.hotelRepository = new BaseRepository<Hotel>(context);
+                    this.hotelRepository = new BaseRepository<Hotel, LuxTravelDBContext>(context);
                 }
                 return hotelRepository;
             }
         }
-        public BaseRepository<HotelLocation> HotelLocationRepository
+        public BaseRepository<HotelLocation, LuxTravelDBContext> HotelLocationRepository
         {
             get
             {
 
                 if (this.hotelLocationRepository == null)
                 {
-                    this.hotelLocationRepository = new BaseRepository<HotelLocation>(context);
+                    this.hotelLocationRepository = new BaseRepository<HotelLocation, LuxTravelDBContext>(context);
                 }
                 return hotelLocationRepository;
             }
         }
 
 
-        public BaseRepository<Booking> BookingRepository
+        public BaseRepository<Booking, LuxTravelDBContext> BookingRepository
         {
             get
             {
 
                 if (this.bookingRepository == null)
                 {
-                    this.bookingRepository = new BaseRepository<Booking>(context);
+                    this.bookingRepository = new BaseRepository<Booking, LuxTravelDBContext>(context);
                 }
                 return bookingRepository;
             }
         }
-        public BaseRepository<BookingDetail> BookingDetailRepository
+        public BaseRepository<BookingDetail, LuxTravelDBContext> BookingDetailRepository
         {
             get
             {
 
                 if (this.bookingDetailRepository == null)
                 {
-                    this.bookingDetailRepository = new BaseRepository<BookingDetail>(context);
+                    this.bookingDetailRepository = new BaseRepository<BookingDetail, LuxTravelDBContext>(context);
                 }
                 return bookingDetailRepository;
             }
         }
 
-        public BaseRepository<Room> RoomRepository
+        public BaseRepository<Room, LuxTravelDBContext> RoomRepository
         {
             get
             {
 
                 if (this.roomRepository == null)
                 {
-                    this.roomRepository = new BaseRepository<Room>(context);
+                    this.roomRepository = new BaseRepository<Room, LuxTravelDBContext>(context);
                 }
                 return roomRepository;
             }
         }
 
-        public BaseRepository<CurrencySetting> CurrencySetting
+        public BaseRepository<CurrencySetting, LuxTravelDBContext> CurrencySetting
         {
             get
             {
 
                 if (this.currencySettingRepository == null)
                 {
-                    this.currencySettingRepository = new BaseRepository<CurrencySetting>(context);
+                    this.currencySettingRepository = new BaseRepository<CurrencySetting, LuxTravelDBContext>(context);
                 }
                 return currencySettingRepository;
             }
         }
-        public BaseRepository<RoomType> RoomTypeRepository
+        public BaseRepository<RoomType, LuxTravelDBContext> RoomTypeRepository
         {
             get
             {
 
                 if (this.roomTypeRepository == null)
                 {
-                    this.roomTypeRepository = new BaseRepository<RoomType>(context);
+                    this.roomTypeRepository = new BaseRepository<RoomType, LuxTravelDBContext>(context);
                 }
                 return roomTypeRepository;
             }
         }
-        public BaseRepository<Guest> GuestRepository
+        public BaseRepository<Guest, LuxTravelDBContext> GuestRepository
         {
             get
             {
 
                 if (this.guestRepository == null)
                 {
-                    this.guestRepository = new BaseRepository<Guest>(context);
+                    this.guestRepository = new BaseRepository<Guest, LuxTravelDBContext>(context);
                 }
                 return guestRepository;
             }
         }
-        public BaseRepository<Photo> PhotoRepository
+        public BaseRepository<Photo, LuxTravelDBContext> PhotoRepository
         {
             get
             {
 
                 if (this.photoRepository == null)
                 {
-                    this.photoRepository = new BaseRepository<Photo>(context);
+                    this.photoRepository = new BaseRepository<Photo, LuxTravelDBContext>(context);
                 }
                 return photoRepository;
             }
         }
-        public BaseRepository<HotelRating> HotelRatingRepository
+        public BaseRepository<HotelRating, LuxTravelDBContext> HotelRatingRepository
         {
             get
             {
 
                 if (this.hotelRatingRepository == null)
                 {
-                    this.hotelRatingRepository = new BaseRepository<HotelRating>(context);
+                    this.hotelRatingRepository = new BaseRepository<HotelRating, LuxTravelDBContext>(context);
                 }
                 return hotelRatingRepository;
             }

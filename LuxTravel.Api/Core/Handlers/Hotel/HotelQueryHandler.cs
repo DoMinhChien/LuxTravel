@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CommonFunctionality.Core;
+using CommonFunctionality.Core.Behaviors;
 using LuxTravel.Api.Core.Queries;
 using LuxTravel.Model.Dtos;
 using MediatR;
@@ -113,7 +113,7 @@ namespace LuxTravel.Api.Core.Handlers.Hotel
                         Id = selectedHotel.Id,
                         DateFrom = request.DateFrom,
                         DateTo = request.DateTo,
-                        GuestId = GuestId,
+                        GuestId = new Guid ("42398EBA-DA7C-462B-80C7-A729103D90E4"),
                         GuestCount = request.GuestCount,
                         HotelName = selectedHotel.Name,
                         AvailableRooms = rooms,

@@ -1,7 +1,7 @@
 ﻿using System;
+using CommonFunctionality.Core.GenericRepository;
 using LuxTravel.Model.BaseRepository;
 using LuxTravel.Model.Entites;
-using LuxTravel.Model.GenericRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +39,7 @@ namespace LuxTravel.Api
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                         sqlServerOptions => sqlServerOptions.CommandTimeout(60)));
             }
-            services.AddScoped(typeof(BaseRepository<>));
+            services.AddScoped(typeof(BaseRepository<,>));
             services.AddScoped(typeof(UnitOfWork));
         }
 

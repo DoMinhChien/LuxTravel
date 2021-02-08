@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using CommonFunctionality.Core;
+using CommonFunctionality.Core.Errors;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace LuxTravel.Api.Controllers
