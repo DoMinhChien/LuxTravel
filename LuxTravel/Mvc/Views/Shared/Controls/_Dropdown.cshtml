@@ -1,0 +1,20 @@
+﻿<link href="@Url.Content("~/Content/Common/select2.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Common/Dropdown.css")" rel="stylesheet" />
+<template id="dropdown-component">
+    <div class="dropdown-component" data-bind="attr: {id: id }">
+        <!-- ko ifnot: isMultiSelect() -->
+        <select class="form-control select2" data-bind="style: style, value: value, attr: { disabled: disabled}, options: options, optionsText: optionsText, optionsValue: optionsValue, optionsCaption: ' '"></select>
+        <div class="toggle-dropdown">
+            <i data-bind="visible: isShowIconRemove(), click: removeItem" title="remove item" class="fa fa-times icon-remove singleSelect"></i>
+            <button style="pointer-events: none;cursor:pointer" data-bind="attr: { disabled: disabled }, click: toggleDropdown" class="caret-down single"><i class="fa fa-caret-down arrow-down dropdown-icon"></i></button>
+        </div>
+        <!-- /ko -->
+        <!-- ko if: isMultiSelect() -->
+        <select multiple="multiple" class="form-control select2 multipleSelect" data-bind=" attr: { disabled: disabled}, options: options, optionsText: optionsText, optionsValue: optionsValue, optionsCaption: ' '"></select>
+        <div class="icon-group-multipleSelect toggle-dropdown">
+            <i data-bind="visible: isShowIconRemove(), click: removeItem" title="remove items" class="fa fa-times icon-remove multipleSelect"></i>
+            <button style="pointer-events: none;" data-bind="attr: { disabled: disabled }, click: toggleDropdown" class="caret-down"><i class="fa fa-caret-down arrow-down dropdown-icon"></i></button>
+        </div>
+        <!-- /ko -->
+    </div>
+</template>

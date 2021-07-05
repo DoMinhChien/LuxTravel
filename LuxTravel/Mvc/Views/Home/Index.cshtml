@@ -1,0 +1,346 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script type="text/javascript">
+    var builder = null;
+
+
+    $(document).ready(function () {
+        if (typeof (CommonEnum.API_URL === 'undefined'))
+        {
+            CommonEnum.API_URL = {};
+
+        }
+        CommonEnum.API_URL = $.extend({}, CommonEnum.API_URL,
+            {
+                
+                GetDataForHomepage: '@Url.Action("GetDataForHomepage", "Home")',
+                
+                GetOffer: '@Url.Action("Index", "Offer")',
+                OfferDetail : '@Url.Action("OfferDetail", "Offer")',
+
+
+                Index : '@Url.Action("Index", "Hotel", new { Area = "admin" })',
+                GetHotelDetail: '@Url.Action("GetHotelDetail", "Hotel", new { Area = "admin" })',
+                UpdateHotel: '@Url.Action("UpdateHotel", "Hotel", new { Area = "admin" })',
+                InsertHotel: '@Url.Action("InsertHotel", "Hotel", new { Area = "admin" })',
+                DeleteHotel: '@Url.Action("DeleteHotel", "Hotel", new { Area = "admin" })',
+                GetListDistrictByCityId: '@Url.Action("GetListDistrictByCityId", "Admin", new { Area = "admin" })',
+                GetListWardByDistrictId: '@Url.Action("GetListWardByDistrictId", "Admin", new { Area = "admin" })',
+                GetMasterDataForRoom: '@Url.Action("GetMasterDataForRoom", "Admin", new { Area = "admin" })',
+
+                DeleteRoom: '@Url.Action("DeleteRoom", "Room", new { Area = "admin" })',
+                UpdateRoom: '@Url.Action("UpdateRoom", "Room", new { Area = "admin" })',
+            });
+
+        var form =
+        {
+
+        };
+        var builder = new HomeFormViewModel(form);
+        ko.applyBindings(builder, document.getElementById('Home-form'));
+
+
+        //Cheat
+        setTimeout(function() {
+            $("#datepickerCheckIn").datepicker({
+                minDate:  new Date()
+            });
+            $("#datepickerCheckOut").datepicker({
+                minDate:  new Date()
+            });
+            //$("#datepickerCheckIn").datepicker({
+            //    todayBtn:  1,
+            //    autoclose: true,
+            //})
+                //.on('changeDate', function (selected) {
+                //var minDate = new Date(selected.date.valueOf());
+                //$('#datepickerCheckOut').datepicker('setStartDate', minDate);
+                //$('#datepickerCheckOut').datepicker('setDate', minDate); // <--THIS IS THE LINE ADDED
+                //})
+                ;
+
+            $("#datepickerCheckOut").datepicker()
+                .on('changeDate', function (selected) {
+                    var maxDate = new Date(selected.date.valueOf());
+                    $('#datepickerCheckIn').datepicker('setEndDate', maxDate);
+                });
+            $.widget( "custom.iconselectmenu", $.ui.selectmenu, {
+                _renderItem: function( ul, item ) {
+                    var li = $( "<li>" ),
+                        wrapper = $( "<div>", { text: item.label } );
+ 
+                    if ( item.disabled ) {
+                        li.addClass( "ui-state-disabled" );
+                    }
+ 
+                    $( "<span>", {
+                            style: item.element.attr( "data-style" ),
+                            "class": "ui-icon " + item.element.attr( "data-class" )
+                        })
+                        .appendTo( wrapper );
+ 
+                    return li.append( wrapper ).appendTo( ul );
+                }
+            });
+ 
+            $( "#filesA" )
+                .iconselectmenu()
+                .iconselectmenu( "menuWidget" )
+                .addClass( "ui-menu-icons" );
+ 
+            $( "#filesB" )
+                .iconselectmenu()
+                .iconselectmenu( "menuWidget" )
+                .addClass( "ui-menu-icons customicons" );
+ 
+            $( "#people" )
+                .iconselectmenu()
+                .iconselectmenu( "menuWidget")
+                .addClass( "ui-menu-icons avatar" );
+
+
+            },
+            1000);
+        
+    });
+
+</script>
+
+<div class="row" id="Home-form">
+    <div class="search">
+        @Html.Partial("_SearchBox")
+
+
+    </div>
+
+    <!-- Intro (temporary done) --> 
+@*@Html.Partial("_Intro")*@
+
+
+    <!-- CTA -->
+
+    <div class="cta" style="width: 100%">
+        <div class="cta_background" style="background-image:url('Content/User/images/cta.jpg')"></div>
+
+        <div class="container" >
+            <div class="row">
+
+
+                <div class="col">
+
+                    <!-- CTA Slider -->
+
+                    <div class="cta_slider_container">
+                        <div class="owl-carousel owl-theme cta_slider">
+
+                            <!-- CTA Slider Item -->
+                            <div class="owl-item cta_item text-center">
+                                <div class="cta_title">Luôn luôn nỗ lực phục vụ</div>
+                                <div class="rating_r rating_r_4">
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                </div>
+                                <p class="cta_text">Với các tính năng hiện có, Lux Travel luôn mong muốn đem đến cho khách hàng những trải nghiệm tốt nhất.</p>
+                                <div class="button cta_button">
+                                    <div class="button_bcg"></div><a  data-bind="click: searchOffer">book now<span></span><span></span><span></span></a>
+                                </div>
+                            </div>
+
+                            <!-- CTA Slider Item -->
+                            <div class="owl-item cta_item text-center">
+                                <div class="cta_title">Trải nghiệm dịch vụ tốt nhất chưa từng có</div>
+                                <div class="rating_r rating_r_4">
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                    <i></i>
+                                </div>
+                                <p class=" ">Bạn có thể đặt phòng khách sạn tại các thành phố lớn như TPHCM, Hà Nội, Đà Nẵng.</p>
+                                <div class="button cta_button">
+                                    <div class="button_bcg"></div><a  data-bind="click: searchOffer">book now<span></span><span></span><span></span></a>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <!-- CTA Slider Nav - Prev -->
+                        <div class="cta_slider_nav cta_slider_prev">
+                            <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="28px" height="33px" viewBox="0 0 28 33" enable-background="new 0 0 28 33" xml:space="preserve">
+                            <defs>
+                            <linearGradient id='cta_grad_prev'>
+                            <stop offset='0%' stop-color='#fa9e1b' />
+                            <stop offset='100%' stop-color='#8d4fff' />
+
+                                        </linearGradient>
+                                    </defs>
+                            <path class="nav_path" fill="#F3F6F9" d="M19,0H9C4.029,0,0,4.029,0,9v15c0,4.971,4.029,9,9,9h10c4.97,0,9-4.029,9-9V9C28,4.029,23.97,0,19,0z
+								M26,23.091C26,27.459,22.545,31,18.285,31H9.714C5.454,31,2,27.459,2,23.091V9.909C2,5.541,5.454,2,9.714,2h8.571
+								C22.545,2,26,5.541,26,9.909V23.091z" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <polygon class="nav_arrow" fill="#F3F6F9" points="15.044,22.222 16.377,20.888 12.374,16.885 16.377,12.882 15.044,11.55 9.708,16.885 11.04,18.219
+								11.042,18.219 " />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </svg>
+                        </div>
+
+                        <!-- CTA Slider Nav - Next -->
+                        <div class="cta_slider_nav cta_slider_next">
+                            <svg version="1.1" id="Layer_5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="28px" height="33px" viewBox="0 0 28 33" enable-background="new 0 0 28 33" xml:space="preserve">
+                            <defs>
+                            <linearGradient id='cta_grad_next'>
+                            <stop offset='0%' stop-color='#fa9e1b' />
+                            <stop offset='100%' stop-color='#8d4fff' />
+
+                            </linearGradient>
+                                    </defs>
+                            <path class="nav_path" fill="#F3F6F9" d="M19,0H9C4.029,0,0,4.029,0,9v15c0,4.971,4.029,9,9,9h10c4.97,0,9-4.029,9-9V9C28,4.029,23.97,0,19,0z
+							M26,23.091C26,27.459,22.545,31,18.285,31H9.714C5.454,31,2,27.459,2,23.091V9.909C2,5.541,5.454,2,9.714,2h8.571
+							C22.545,2,26,5.541,26,9.909V23.091z" />
+
+                            <polygon class="nav_arrow" fill="#F3F6F9" points="13.044,11.551 11.71,12.885 15.714,16.888 11.71,20.891 13.044,22.224 18.379,16.888 17.048,15.554
+							17.046,15.554 " />
+                            </svg>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Offers -->
+
+    <div class="offers">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h2 class="section_title">Top khách sạn nổi bật</h2>
+                </div>
+            </div>
+            <div class="row offers_items">
+                
+                <!-- ko foreach: hotels-->
+                <!-- Offers Item -->
+                <div class="col-lg-6 offers_col">
+                    <div class="offers_item">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="offers_image_container">
+                                    <div class="offers_image_background" style="background-image:url('Content/User/images/offer_1.jpg')"></div>
+                                    <div class="offer_name"><a href="#" data-bind="text: CityName"></a></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="offers_content">
+                                    <h5 class="offers_title" data-bind="text: Name"></h5>
+                                    <div class="offers_price">$70<span> per night</span></div>
+                                    <div class="rating_r offers_rating" data-bind="css: $data.Icon">
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                        <i></i>
+                                    </div>
+                                    <p class="offers_text">Lake View.</p>
+                                    <div class="offers_icons">
+                                        <ul class="offers_icons_list">
+                                            <li class="offers_icons_item"><img src="~/Content/User/images/post.png" alt=""></li>
+                                            <li class="offers_icons_item"><img src="~/Content/User/images/compass.png" alt=""></li>
+                                            <li class="offers_icons_item"><img src="~/Content/User/images/bicycle.png" alt=""></li>
+                                            <li class="offers_icons_item"><img src="~/Content/User/images/sailboat.png" alt=""></li>
+                                        </ul>
+                                    </div>
+                                    <div class="offers_link"><a data-bind="attr : { 'href': $parent.getUrl(Id)}">Chi tiết</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 
+                <!-- /ko-->
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

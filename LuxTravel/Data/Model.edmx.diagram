@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="49ac2ed701434d6ba4c9aebca99f2375" Name="Diagram1">
+        <EntityTypeShape EntityType="LuxTravelModel.Booking_Status" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Booking" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Guest" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Hotel" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Payment_Status" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Payment_Types" Width="1.5" PointX="11.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Payment" Width="1.5" PointX="13.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Rate_Types" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.ReservationAgent" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Room_Booked" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Room_Status" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Room_Types" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Room" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Staff" Width="1.5" PointX="12.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Staff_Rooms" Width="1.5" PointX="10.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuxTravelModel.Star_Ratings" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="LuxTravelModel.FK_Bookings_Booking_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Bookings_Guests" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Bookings_Hotels" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Bookings_Reservations" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rooms_Booked_Bookings" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Hotels_Ratings" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rooms_Hotels" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Payments_Payment_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Payment_Payment_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Payments_Rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rooms_Booked_Rooms" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Room_Room_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rates_Room_Types" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Staff_Rooms_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="LuxTravelModel.FK_Staff_Manager" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LuxTravelModel.City" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="LuxTravelModel.District" Width="1.5" PointX="0.75" PointY="18.625" />
+        <EntityTypeShape EntityType="LuxTravelModel.Ward" Width="1.5" PointX="0.75" PointY="16.125" />
+        <EntityTypeShape EntityType="LuxTravelModel.CityDistrictMapping" Width="1.5" PointX="6.375" PointY="15.625" />
+        <AssociationConnector Association="LuxTravelModel.FK_City_District_City" />
+        <AssociationConnector Association="LuxTravelModel.FK_City_District_District" />
+        <EntityTypeShape EntityType="LuxTravelModel.DistrictWardMapping" Width="1.5" PointX="3" PointY="18.5" />
+        <AssociationConnector Association="LuxTravelModel.FK_DistrictWardMapping_District" />
+        <AssociationConnector Association="LuxTravelModel.FK_DistrictWardMapping_Ward" />
+        <EntityTypeShape EntityType="LuxTravelModel.HotelLocation" Width="1.5" PointX="9" PointY="14.375" />
+        <AssociationConnector Association="LuxTravelModel.FK_HotelLocation_City" />
+        <AssociationConnector Association="LuxTravelModel.FK_HotelLocation_District" />
+        <AssociationConnector Association="LuxTravelModel.FK_HotelLocation_Ward" />
+        <AssociationConnector Association="LuxTravelModel.FK_Hotels_HotelLocation" />
+        <EntityTypeShape EntityType="LuxTravelModel.ImageStore" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="LuxTravelModel.Rate" Width="1.5" PointX="10.5" PointY="4" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rates_Rate_Types" />
+        <AssociationConnector Association="LuxTravelModel.FK_Rates_Rooms" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

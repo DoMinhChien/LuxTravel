@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@Scripts.Render("~/Scripts/hotel")
+
+<script type="text/javascript">
+    var builder = null;
+
+
+    $(document).ready(function () {
+        if (typeof (CommonEnum.API_URL === 'undefined'))
+        {
+            CommonEnum.API_URL = {};
+
+        }
+        CommonEnum.API_URL = $.extend({}, CommonEnum.API_URL,
+            {
+                Index : '@Url.Action("Index", "Hotel", new { Area = "admin" })',
+                GetHotel: '@Url.Action("GetListHotel", "Hotel", new { Area = "admin" })',
+                GetHotelDetail: '@Url.Action("GetHotelDetail", "Hotel", new { Area = "admin" })',
+                UpdateHotel: '@Url.Action("UpdateHotel", "Hotel", new { Area = "admin" })',
+                InsertHotel: '@Url.Action("InsertHotel", "Hotel", new { Area = "admin" })',
+                DeleteHotel: '@Url.Action("DeleteHotel", "Hotel", new { Area = "admin" })',
+                GetListDistrictByCityId: '@Url.Action("GetListDistrictByCityId", "Admin", new { Area = "admin" })',
+                GetListWardByDistrictId: '@Url.Action("GetListWardByDistrictId", "Admin", new { Area = "admin" })',
+                GetMasterDataForRoom: '@Url.Action("GetMasterDataForRoom", "Admin", new { Area = "admin" })',
+
+                DeleteRoom: '@Url.Action("DeleteRoom", "Room", new { Area = "admin" })',
+                UpdateRoom: '@Url.Action("UpdateRoom", "Room", new { Area = "admin" })',
+                ImageUpload: '@Url.Action("ImageUpload", "Room", new { Area = "admin" })',
+                
+                GetRoomDetail: '@Url.Action("GetRoomDetail", "Room", new { Area = "admin" })'
+                @*GetHistory: '@Url.Action("GetHistory", "Home")',
+                
+                GetSupplierForMasterData:'@Url.Action("GetSupplierForMasterData", "Supplier", new { Area = "admin" })',*@
+            });
+
+        var form =
+        {
+
+        };
+        var builder = new HotelListFormViewModel(form);
+        ko.applyBindings(builder, document.getElementById('Hotel-form'));
+
+
+    });
+
+</script>
+
+
+
+<div class="row " id="Hotel-form">
+    <div data-bind="if: !isViewDetail()">
+        <!--ko template: viewListTemplate -->
+        <!-- /ko-->
+    </div>
+
+    <div data-bind="if: isViewDetail()">
+        <!--ko template: viewDetailTemplate -->
+        <!-- /ko-->
+    </div>
+
+</div>
+
+<script type="text/html" id="hotel-Detail">
+    @Html.Partial("_Detail")
+</script>
+
+<script type="text/html" id="hotel-List">
+    @Html.Partial("_List")
+
+</script>

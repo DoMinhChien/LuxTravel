@@ -1,0 +1,427 @@
+﻿
+
+<div class=" mg-b-15 cart">
+    <div class="container-fluid" data-bind="with : currentViewModel">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" >
+                <div class="project-details-wrap shadow-reset">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <div class="project-details-title">
+                                <h2><span class="profile-details-name-nn">Thông tin liên hệ</h2>
+                            </div>
+                            <ul id="adminpro-demo2" class="comment-action-st collapse">
+                                <li>
+                                    <a href="#">Add</a>
+                                </li>
+                                <li>
+                                    <a href="#">Report</a>
+                                </li>
+                                <li>
+                                    <a href="#">Hide Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Turn on Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Turn off Profile</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <div class="admin-comment-month project-details-action">
+                                <button data-bind="click: bookRoom" type="button" class="btn btn-custon-rounded-three btn-success"><span class="fa fa-save"></span> Thanh toán</button>
+                                @*<button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo2">...</button>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" data-bind="with: userViewModel">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="project-details-mg">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="project-details-st">
+                                            <span><strong>Status:</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                        <div class="btn-group project-list-ad">
+                                            <button class="btn btn-white btn-xs">Active</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-details-mg">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="project-details-st">
+                                            <span><strong>Tên người liên hệ:</strong><span class="required">*</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                        <div class="project-details-dt">
+                                            <input-component params='name: name, maxLength:100, placeholder: "Name"'></input-component>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-details-mg">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="project-details-st">
+                                            <span><strong>Email:</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                        <div class="project-details-dt">
+                                            <input-component params='name: email, maxLength:100, placeholder: "Email"'></input-component>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-details-mg">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="project-details-st">
+                                            <span><strong>SDT:</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                        <div class="project-details-dt">
+                                            <input-component params='name: phone, maxLength:100, placeholder: "SDT"'></input-component>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="project-details-tab">
+                                <ul class="nav nav-tabs res-pd-less-sm">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#home">Chi tiết giá</a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content res-tab-content-project">
+                                    <div id="home" class="tab-pane fade in active animated zoomInLeft">
+                                        <div class="user-profile-comment-list">
+                                            <h5 class="confirm-title" data-bind="text: hotelName"></h5>
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+                                                    <div class="confirm-offer-text">
+                                                        <span>Số đêm nghỉ</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-mask-title pull-left">
+                                                        <span data-bind="text: nightCount"></span>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="confirm-offer-text">
+                                                        <span>Số lượng phòng</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-mask-title pull-left">
+                                                        <span data-bind="text:roomCount"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="confirm-offer-text">
+                                                        <span>Đơn giá phòng</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-mask-title pull-left">
+                                                        <span data-bind="text: rate"></span>&nbsp;<span class="fa fa-dollar"></span> / đêm
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divide"></div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="confirm-offer-text">
+                                                        <span>Tổng giá tiền</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-mask-title pull-left">
+                                                        <span data-bind="text: total"></span>&nbsp;<span class="fa fa-dollar"></span>   
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="row profile-comment-mg">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                <div class="user-profile-comment-img projuct-details-img-tab">
+                    <a href="#">
+                        <img src="img/notification/6.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                <div class="user-profile-comment-content">
+                    <p><strong>Andrew Williams</strong> Andrew Williams Making this the first true generator on the Internet. It uses a dictionary.</p>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="comment-replay-profile">
+                                <div class="btn-group">
+                                    <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 299 Like</button>
+                                    <button class="btn btn-white profile-details-name-nn btn-xs"><i class="fa fa-heart"></i> 10 Love</button>
+                                    <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="comment-date-profile profile-details-name-nn">
+                                <span>10.05.2018</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row replay-user-comment-pro">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                        <div class="user-profile-comment-img projuct-details-img-tab">
+                            <a href="#">
+                                <img src="img/notification/5.jpg" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                        <div class="user-profile-comment-input">
+                            <textarea name="text" cols="30" rows="10" placeholder="Write Comment.."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row profile-comment-mg">
+            <div class="col-lg-2">
+                <div class="user-profile-comment-img projuct-details-img-tab">
+                    <a href="#">
+                        <img src="img/notification/3.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="user-profile-comment-content">
+                    <p><strong>Andrew Williams</strong> Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident.</p>
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="comment-replay-profile">
+                                <div class="btn-group">
+                                    <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 299 Like</button>
+                                    <button class="btn btn-white profile-details-name-nn btn-xs"><i class="fa fa-heart"></i> 10 Love</button>
+                                    <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="comment-date-profile profile-details-name-nn">
+                                <span>10.05.2018</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row profile-comment-mg">
+            <div class="col-lg-2">
+                <div class="user-profile-comment-img projuct-details-img-tab">
+                    <a href="#">
+                        <img src="img/notification/4.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="user-profile-comment-input">
+                    <textarea name="text" cols="30" rows="10" placeholder="Write Comment.."></textarea>
+                </div>
+            </div>
+        </div>*@
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="project-details-tab">
+                                <ul class="nav nav-tabs res-pd-less-sm">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#home1">Thông tin khác</a>
+                                    </li>
+                                    
+                                </ul>
+                                <div class="tab-content res-tab-content-project">
+                                    <div id="home1" class="tab-pane fade in active animated zoomInLeft">
+                                        <div class="col-lg-5">
+
+                                            <!-- Accordions -->
+                                            <div class="elements_accordions">
+
+                                                <div class="accordion_container">
+                                                    <div class="accordion d-flex flex-row align-items-center active"><div>Yêu cầu đặc biệt (nếu có)</div></div>
+                                                    <div class="accordion_panel">
+                                                        <p>Testing.</p>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+
+                                            <!-- Accordions -->
+                                            <div class="elements_accordions">
+
+                                                <div class="accordion_container">
+                                                    <div class="accordion d-flex flex-row align-items-center active"><div>Chính sách hủy đặt phòng</div></div>
+                                                    <div class="accordion_panel">
+                                                        <p>Đặt phòng này không được hoàn tiền.</p>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="project-details-descri project-details-mg-t-30 shadow-reset">
+
+                    <h2>Kiểm tra thông tin đặt phòng</h2>
+                    <div class="divide"></div>
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>Số đêm nghỉ</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text: nightCount"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>Ngày nhận phòng:</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text: formattedDateFrom"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>Ngày trả phòng: </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text: formattedDateTo"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divide"></div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>Kiểu giường</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text: roomInfor"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>Số lượng phòng:</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text:roomCount"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="confirm-offer-text">
+                                <span>khách/phòng:</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="input-mask-title">
+                                <span data-bind="text:guestCount"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="sparkline7-list shadow-reset mg-t-30">
+                    <div class="sparkline7-hd">
+                        <div class="main-spark7-hd">
+                            <h1>Budgets</h1>
+                            <div class="sparkline7-outline-icon">
+                                <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline7-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline7-graph project-details-price-hd">
+                        <div class="single-skill">
+                            <div class="progress-circular">
+                                <input type="text" class="knob" value="0" data-rel="85" data-linecap="round" data-width="90" data-bgcolor="#999" data-fgcolor="#03a9f4" data-thickness=".10" data-readonly="true" disabled>
+                            </div>
+                            <div class="progress-circular1 project-details-price">
+                                <h2>$566</h2>
+                                <p>Price</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+            </div>
+        </div>
+    </div>

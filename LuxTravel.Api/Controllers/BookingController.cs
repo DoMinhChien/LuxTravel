@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using CommonFunctionality.Api;
 using LuxTravel.Api.Core.Commands;
 using LuxTravel.Api.Core.Queries;
-using LuxTravel.Api.Core.Services;
 using LuxTravel.Model.Dtos;
 using Microsoft.AspNetCore.Authorization;
 

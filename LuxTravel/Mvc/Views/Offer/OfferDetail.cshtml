@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "OfferDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+}
+<link href="/Content/User/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/Content/User/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/plugins/OwlCarousel2-2.2.1/animate.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/styles/single_listing_responsive.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/styles/single_listing_styles.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/styles/elements_styles.css">
+<link rel="stylesheet" type="text/css" href="/Content/User/styles/elements_responsive.css">
+<link href="~/Content/Admin/CSS/style.css" rel="stylesheet" />
+<script type="text/javascript">
+    var builder = null;
+
+
+    $(document).ready(function () {
+
+        CommonEnum.API_URL = $.extend({}, CommonEnum.API_URL,
+            {
+                Index : '@Url.Action("Index", "Home")',
+                ProcessOffer: '@Url.Action("ProcessOffer", "Offer")'
+            });
+
+        var form =
+        {
+            data : @Html.Raw(serializer.Serialize(@Model)),
+            UserFilters : @Html.Raw(serializer.Serialize(ViewBag.UserFilters))
+        };
+        var builder = new OfferDetailFormViewModel(form);
+        ko.applyBindings(builder, document.getElementById('Offer-form'));
+
+
+    });
+
+</script>
+
+
+<script src="~/Scripts/apps/Offer/ko-offer.js"></script>
+<script src="~/Areas/Admin/Scripts/Room/RoomModel.js"></script>
+<script src="/Content/User/plugins/colorbox/jquery.colorbox-min.js"></script>
+<script src="/Content/User/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+
+<script src="/Content/User/js/single_listing_custom.js"></script>
+<script src="/Content/User/plugins/greensock/TweenMax.min.js"></script>
+<script src="/Content/User/plugins/greensock/TimelineMax.min.js"></script>
+<script src="/Content/User/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="/Content/User/plugins/greensock/animation.gsap.min.js"></script>
+<script src="/Content/User/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="/Content/User/plugins/progressbar/progressbar.min.js"></script>
+@*<script src="/Content/User/js/elements_custom.js"></script>*@
+
+<div class="container" id="Offer-form">
+    <div data-bind="if: !isViewCart()">
+        <!--ko template: viewOfferDetailTemplate -->
+        <!-- /ko-->
+    </div>
+
+    <div data-bind="if: isViewCart()">
+        <!--ko template: viewCartTemplate -->
+        <!-- /ko-->
+    </div>
+</div>
+
+
+<script type="text/html" id="offer-Detail-form">
+    @Html.Partial("_OfferDetail")
+</script>
+
+<script type="text/html" id="cart-form">
+    @Html.Partial("_Cart")
+
+</script>

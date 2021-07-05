@@ -1,0 +1,217 @@
+﻿
+<div class="project-details-area mg-b-15" data-bind="with :currentViewModel">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            <div class="project-details-wrap shadow-reset custom-mg-pd-layout">
+            <div class="row" style="padding-left: 15px;">
+                <div class="project-details-title">
+                    <h2>Hotel Detail  "<span class="profile-details-name-nn" data-bind="text : Name()" style="font-style:italic"></span>"</h2>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 txt-align-r ">
+                    <div class="admin-comment-month project-details-action">
+
+                        <button data-bind="click: UpdateHotel" type="button" class="btn btn-custon-rounded-three btn-success"><span class="fa fa-save"></span> Save</button>
+                        <!-- ko if:!IsNewMode()-->
+                        <button data-bind="click: DeleteHotel.bind($data,Id)" type="button" class="btn btn-custon-rounded-three btn-danger"><span class="fa fa-times"></span> Delete</button>
+                        <history-component params='objectId : Id'></history-component>
+                        <!-- /ko-->
+                        <button data-bind="click: ReturnToList.bind()" type="button" class="btn btn-custon-rounded-three btn-default"><span class="fa fa-undo"></span> Return</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-10">
+
+                    <div class="project-details-mg">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="input-mask-title">
+                                    <span><strong>Name:</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="input-mark-inner ">
+                                    <input-component params='name: Name, maxLength:100, placeholder: "Name"'></input-component>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details-mg">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="input-mask-title">
+                                    <span><strong>Email:</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="input-mark-inner ">
+                                    <input-component params='name: Email,placeholder: "Email"'></input-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-details-mg">
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="project-details-st">
+                                    <span><strong>Status:</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <switch-component params='IsActive:IsActive'></switch-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-10" data-bind="with: LocationModel">
+                    <div class="project-details-mg">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="input-mask-title">
+                                    <span><strong>City</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div >
+                                    <dropdown-component params="{id: 'dropdownCity', defaultValue: null, value: CityId, disabled: ko.observable(false), options: ListCity, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select City' }"></dropdown-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details-mg">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="input-mask-title">
+                                    <span><strong>District</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="">
+
+                                    <dropdown-component params="{id: 'dropdownDistrict', defaultValue: null, value: DistrictId, disabled: ko.observable(false), options: ListDistrict, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select District' }"></dropdown-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-details-mg">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="input-mask-title">
+                                    <span><strong>Ward</strong></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="">
+
+                                    <dropdown-component params="{id: 'dropdownWard', defaultValue: null, value: WardId, disabled: ko.observable(false), options: ListWard, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select Ward' }"></dropdown-component>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    @*<div class="project-details-mg">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="project-details-st">
+                                        <span><strong>Participants:</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <div class="project-details-img">
+                                        <a href="#">
+                                            <img src="img/notification/1.jpg" alt="" />
+                                        </a>
+                                        <a href="#">
+                                            <img src="img/notification/2.jpg" alt="" />
+                                        </a>
+                                        <a href="#">
+                                            <img src="img/notification/3.jpg" alt="" />
+                                        </a>
+                                        <a href="#">
+                                            <img src="img/notification/4.jpg" alt="" />
+                                        </a>
+                                        <a href="#">
+                                            <img src="img/notification/5.jpg" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="project-pregress-details">
+                        <span><strong>Rating:</strong></span>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="skill-content-3 project-details-progress">
+                        <div class="skill">
+                            <div class="progress">
+                                <div class="progress-bar wow fadeInLeft" data-progress="95%" style="width: 95%;" data-wow-duration="1.5s" data-wow-delay="1.2s">
+                                    <span>95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-custon-rounded-three btn-success" style="margin-top: 15px;" data-bind="click: insertRoom"><i class="fa fa-plus"></i>&nbsp; New Room</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row list-room">
+
+                <table border="1" class="table sparkle-table">
+                    <thead>
+                    <tr>
+
+                        <th>Room Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- ko foreach: rooms-->
+                    <tr>
+
+                        <td data-bind="text :Name"></td>
+                        <td data-bind="text :Name"></td>
+                        <td><span ><a data-bind="click: $parent.toggleEditRoom.bind(Id)" href="#"><i class="fa fa-pencil"></i></a></span></td>
+                    </tr>
+                    <!--/ko-->
+                    </tbody>
+                </table>
+            </div>
+
+            </div>
+            </div>
+            @Html.Partial("~/Areas/Admin/Views/Room/_ModalInsertRoom.cshtml")
+            
+        
+        </div>
+
+        
+
+    </div>
+</div>
+

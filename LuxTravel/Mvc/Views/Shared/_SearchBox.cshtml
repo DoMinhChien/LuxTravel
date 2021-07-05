@@ -1,0 +1,65 @@
+﻿<style>
+    .search_item .dropdown-component {
+        display: flex;
+    }
+</style>
+<div class="container fill_height" data-bind="with: searchModel">
+    <div class="row fill_height">
+        <div class="col fill_height">
+
+            <!-- Search Tabs -->
+
+            <div class="search_tabs_container">
+                <div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+                    <div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/suitcase.png" alt=""><span>hotels</span></div>
+                    @*<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/bus.png" alt="">car rentals</div>
+                        <div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/departure.png" alt="">flights</div>
+                        <div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/island.png" alt="">trips</div>
+                        <div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/cruise.png" alt="">cruises</div>
+                        <div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="~/Content/User/images/diving.png" alt="">activities</div>*@
+                </div>
+            </div>
+
+            <!-- Search Panel -->
+
+            <div class="search_panel active">
+                <div class="row search-area">
+
+               
+                    <div class="search_item ">
+                        <label>Destination</label>
+
+                        <dropdown-component   params="{id: 'dropdownDestination',value: cityId, disabled: ko.observable(false), options: cities, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(false), isMultiSelect: ko.observable(false), placeholder: 'Destination' }"></dropdown-component>
+                        @*<input-component class="" params='name: cityName,placeholder: "City"'></input-component>*@
+
+                    </div>
+
+                    <div class="search_item">
+                        <label>check in</label>
+                        <input class=" form-control" type="text" id="datepickerCheckIn" data-bind="value :dateFrom">
+                    </div>
+                    <div class="search_item">
+                        <label>check out</label>
+                        <input class=" form-control" type="text" id="datepickerCheckOut" data-bind="value :dateTo">
+                    </div>
+                    <div class="search_item">
+                        <label>Guest</label>
+                        <number-input-component params="value : guestCount,min:1"></number-input-component>
+                    </div>
+                    <div class="search_item">
+                        <label>Room</label>
+                        <number-input-component params="value : roomCount,min:1"></number-input-component>
+                    </div>
+                    
+                    <button class="button search_button trans_200" data-bind="click : $parent.searchOffer">Tìm <span></span><span></span><span></span></button>
+                    
+      
+            </div>
+            </div>
+            <!-- Search Panel -->
+
+        </div>
+
+    </div>
+    
+</div>

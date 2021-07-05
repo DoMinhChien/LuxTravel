@@ -3,12 +3,13 @@ using System;
 using System.Threading.Tasks;
 using CommonFunctionality.Api;
 using LuxTravel.Api.Core.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LuxTravel.Api.Controllers
 {
     [Route("api/photo")]
     [ApiController]
-   // [Authorize]
+    [Authorize]
 
     public class PhotoController : ApiControllerBase
     {

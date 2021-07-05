@@ -3,7 +3,7 @@
     "LuxTravel.Model": {
       "commandName": "Project",
       "environmentVariables": {
-        "ENVIRONMENT_VARIABLE": "Production"
+        "ENVIRONMENT_VARIABLE": "Development"
       }
     }
   }

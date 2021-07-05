@@ -1,0 +1,65 @@
+﻿<template id="history-component">
+    <button data-bind="click: GetHistory.bind($data,objectId())" type="button" class="btn btn-custon-rounded-three btn-default"><span class="fa fa-history"></span> History</button>
+
+    <!--ko template: viewHistoryTemplate -->
+    <!-- /ko-->
+
+
+</template>
+<script type="text/html" id="history-Detail">
+    <div class="modal fade" id="historyModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-lg-10">
+                        <h3 class="modal-title " style="float:left"> <span class="fa fa-history big-icon"></span> Histories</h3>
+                    </div>
+                </div>
+                <div class="modal-body" id="historyModalBody">
+                    <div class="sparkline12-graph" data-bind="foreach: histories">
+                        <div class="row">
+                            <div class="col-lg-12 txt-align-l">
+                                <a href=""><strong data-bind="text: DisplayName"></strong>: <span data-bind="text: Content"></span>(<span data-bind="text: CommonGlobal.convertDateJSToClientDateTime(CreatedOn)"></span>)</a>
+                                <!--ko if: HistoryDetails.length >0-->
+                                <table border="1">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Old Value</th>
+                                            <th>New Value</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody data-bind="foreach: HistoryDetails">
+                                        <tr>
+                                            <td style="width:50%" data-bind="text: Field"></td>
+                                            <td style="width:30%" data-bind="text: OldValue"></td>
+                                            <td style="width:20%" data-bind="text: NewValue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--/ko-->
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-8">
+                        </div>
+                        <div class="col-lg-4 txt-align-r">
+                            <button class="btn btn-default" href="#" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;Close</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</script>

@@ -1,0 +1,12 @@
+﻿<template id="input-component">
+    <!-- ko if : !isCurrency-->
+    <input type="text" class="form-control" data-bind="attr{disabled: !isEditting(),'maxlength': maxLength, placeholder: placeholder}, value: name, valueUpdate: 'afterkeydown',event: {'keyup': CheckValidInput}">
+    <!--/ko-->
+    <!-- ko if : isCurrency-->
+        <div class="input-group mg-b-22" style="width:100%;">
+            <input class="form-control" data-bind="currency:name,css:{negative:false}">
+            <div class="input-group-addon">$</div>
+        </div>
+
+    <!--/ko-->
+</template>

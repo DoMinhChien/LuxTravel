@@ -1,0 +1,27 @@
+﻿<div class="data-table-area mg-b-15">
+    <div class="container-fluid">
+        <div class="row" data-bind="with:hotelListViewModel">
+            <div class="col-lg-12">
+                <div class="sparkline13-list shadow-reset custom-mg-pd-layout">
+                    <div class="sparkline13-hd">
+                        <div class="main-sparkline13-hd">
+                            <h1> Hotels</h1>
+                            <div class="sparkline13-outline-icon">
+                                <button data-bind="click: InsertHotel" class="important-btn"><i class="fa big-icon fa-plus"></i> New Hotel</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline13-graph">
+
+
+                        <div class="ko-grid"
+                             data-bind="koGrid: GridOptions">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,167 @@
+﻿<div class="modal fade" id="roomModal" data-bind="with: roomModel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-10">
+                    <h3 class="modal-title">Room "<span data-bind="text : Name"></span>"</h3>
+                </div>
+                <div class="col-lg-2">
+                    <button data-bind="click: DeleteRoom.bind($data,Id)" type="button" class="btn btn-custon-rounded-three btn-danger pull-left"><span class="fa fa-times"></span> Delete</button>
+
+                </div>
+            </div>
+
+            <div class="modal-body" style="margin-right: 20px;">
+                <div class="row" style="background-color: gainsboro;margin-left: 0px">
+                    <div class="project-details-completeness room-detail">
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Name</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <div style="margin-bottom: 7px;">
+
+                                        <input-component params='name: Name,placeholder: "Name"'></input-component>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Room Status</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <div style="margin-bottom: 7px;">
+                                        <dropdown-component params="{id: 'dropdownRoomStatus', defaultValue: null, value: StatusId, disabled: ko.observable(false), options: $parent.RoomStatues, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select Status' }"></dropdown-component>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Room Type</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <div style="margin-bottom: 7px;">
+                                        <dropdown-component params="{id: 'dropdownRoomType', defaultValue: null, value: RoomTypeId, disabled: ko.observable(false), options: $parent.RoomTypes, optionsText: 'Name', optionsValue: 'Id', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select Roopm Type' }"></dropdown-component>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Room Price</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <input-component params='name: Price,placeholder: "Number",isCurrency : ko.observable(true)'></input-component>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Room Floor</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <div style="margin-bottom: 7px;">
+                                        @*<dropdown-component params="{id: 'dropdownCity', defaultValue: null, value: CityId, disabled: ko.observable(false), options: ListCity, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select City' }"></dropdown-component>*@
+                                        <number-input-component params="value : RoomFloor"></number-input-component>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-2 col-sm-4 col-xs-12">
+                                    <div class="input-mask-title align-left p-t-10">
+                                        <span><strong>Room Number</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                    <div style="margin-bottom: 7px;">
+                                        @*<dropdown-component params="{id: 'dropdownCity', defaultValue: null, value: CityId, disabled: ko.observable(false), options: ListCity, optionsText: 'Name', optionsValue: 'Value', isRequire: ko.observable(true), isMultiSelect: ko.observable(false), placeholder: 'Select City' }"></dropdown-component>*@
+                                        <input-component params='name: Number,placeholder: "Number"'></input-component>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row" style="background-color: gainsboro; margin: 15px">
+                        <fieldset>
+                            <div class="row image-header">
+                                <div class="col-md-6">
+                                    <h5>Select Image to upload</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Uploaded Image</h5>
+                                </div>
+                            </div>
+                            <div class="row image-header">
+                                <div class="col-md-6">
+
+
+                                    <div class="col-md-5">
+                                        <div class="btn btn-primary">
+                                            <input type="file" id="imageBrowes" data-bind="event: {change: function() { ReadImage($element.files[0])}}"/>
+                                        </div>
+                                        <hr/>
+
+                                        <div id="imgPreview" class="thumbnail" style="display: none">
+                                            <img class="img-responsive" id="targetImg"/>
+                                            <div class="caption">
+                                                <a href="#" data-bind="click: ClearPreview"><i class="glyphicon glyphicon-trash"></i></a>
+                                                <span id="description"></span>
+                                            </div>
+                                            <a href="#" class="btn btn-default" data-bind="click: Uploadimage">Upload</a>
+                                        </div>
+
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-6 thumbnail" id="uploadedImage" >
+
+
+                                    </div>
+                            </div>
+
+
+                        </fieldset>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-lg-8">
+                    </div>
+                    <div class="col-lg-4 txt-align-r">
+
+                        <button class="btn btn-success mg-r-7" data-bind="click: UpdateRoom"><span class="fa fa-save"></span>&nbsp;Save Changes</button>
+                        <button class="btn btn-default" href="#" data-dismiss="modal"><span class="fa fa-times"></span>&nbsp;Cancel</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

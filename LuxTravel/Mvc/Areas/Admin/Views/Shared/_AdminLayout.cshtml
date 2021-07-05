@@ -1,0 +1,190 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Lux Travel - Administrators</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/Admin/CSS/KoGrid.css" rel="stylesheet" />
+    <link href="~/Content/Common/select2.min.css" rel="stylesheet"/>
+    @Styles.Render("~/Content/Admin")
+    @Styles.Render("~/Content/common")
+    
+
+
+
+
+    @Scripts.Render("~/Scripts/knockout")
+    @Scripts.Render("~/Scripts/common")
+    @Scripts.Render("~/Scripts/sweetalert2")
+ 
+
+
+</head>
+<body class="materialdesign">
+
+    <!-- Header top area start-->
+    <div class="wrapper-pro">
+
+        <div class="left-sidebar-pro">
+            @Html.Partial("_LeftMenu")
+        </div>
+
+        <div class="content-inner-all ">
+            <!-- Header top area start-->
+            @Html.Partial("_HeaderTop")
+            <!-- Header top area end-->
+            <!-- Breadcome start-->
+            <div class="breadcome-area mg-b-30 small-dn">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="breadcome-list shadow-reset ">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        @*<div class="breadcome-heading">
+                                                <form role="search" class="">
+                                                    <input type="text" placeholder="Search..." class="form-control">
+                                                    <a href=""><i class="fa fa-search"></i></a>
+                                                </form>
+                                            </div>*@
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <ul class="breadcome-menu">
+                                            <li>
+                                                <a href="#">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li>
+                                                <span class="bread-blod">Data Table</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Breadcome End-->
+            <!-- Mobile Menu start -->
+            <div class="mobile-menu-area">
+                @Html.Partial("_MobileMenu")
+            </div>
+            <!-- Mobile Menu end -->
+            <!-- Breadcome start-->
+            <div class="breadcome-area mg-b-30 des-none">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list map-mg-t-40-gl shadow-reset">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="">
+                                                <input type="text" placeholder="Search..." class="form-control">
+                                                <a href=""><i class="fa fa-search"></i></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <ul class="breadcome-menu">
+                                            <li>
+                                                <a href="#">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li>
+                                                <span class="bread-blod">Dashboard</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Breadcome End-->
+            <!-- Static Table Start -->
+
+            @Html.Partial("~/Views/Shared/Controls/_Input.cshtml")
+            @Html.Partial("~/Views/Shared/Controls/_History.cshtml")
+            @Html.Partial("~/Views/Shared/Controls/_SwitchStatus.cshtml")
+            @Html.Partial("~/Views/Shared/Controls/_NumberInput.cshtml")
+            @Html.Partial("~/Views/Shared/Controls/_Dropdown.cshtml")
+            @RenderBody()
+
+
+        </div>
+    </div>
+    <!-- Footer Start-->
+    <div class="footer-copyright-area">
+        @Html.Partial("_Footer")
+    </div>
+    <!-- Footer End-->
+    <!-- Chat Box Start-->
+    @Html.Partial("_ChatBox")
+    <!-- Chat Box End-->
+    <!-- jquery
+        ============================================ -->
+<!-- Static Table End -->
+<div id="loader" style="display:none">
+    <div class="ts_preloading_box">
+        <div id="ts-preloader-absolute05">
+            <div class="tsperloader5" id="tsperloader5_one"></div>
+            <div class="tsperloader5" id="tsperloader5_two"></div>
+            <div class="tsperloader5" id="tsperloader5_three"></div>
+            <div class="tsperloader5" id="tsperloader5_four"></div>
+            <div class="tsperloader5" id="tsperloader5_five"></div>
+            <div class="tsperloader5" id="tsperloader5_six"></div>
+            <div class="tsperloader5" id="tsperloader5_seven"></div>
+            <div class="tsperloader5" id="tsperloader5_eight"></div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<script src="~/Scripts/knockout/knockout-custom.binding.js"></script>
+<script src="~/Scripts/knockout/koGrid-2.1.1.debug.js"></script>
+
+    <script src="~/Scripts/jquery.meanmenu.js"></script>
+    <!-- mCustomScrollbar JS
+    ============================================ -->
+    <script src="~/Scripts/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="~/Scripts/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="~/Scripts/jquery.scrollUp.min.js"></script>
+    <!-- counterup JS
+        ============================================ -->
+    <script src="~/Scripts/counterup/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/counterup/waypoints.min.js"></script>
+    <!-- peity JS
+    ============================================ -->
+    <script src="~/Scripts/peity/jquery.peity.min.js"></script>
+    <script src="~/Scripts/peity/peity-active.js"></script>s
+
+    
+<script src="~/Scripts/component/DropDown.js"></script>
+    <script src="~/Scripts/component/Input.js"></script>
+    <script src="~/Scripts/component/NumberInput.js"></script>
+    <script src="~/Scripts/component/SwitchStatus.js"></script>
+<script src="~/Scripts/component/History.js"></script>
+
+<script src="~/Scripts/select2/select2.full.min.js"></script>
+<script src="~/Scripts/select2/select2.min.js"></script>
+
+@*@Scripts.Render("~/Scripts/select2")*@
+    @*@Styles.Render("~/Scripts/component")*@
+
+</body>
+
+
+</html>
+
