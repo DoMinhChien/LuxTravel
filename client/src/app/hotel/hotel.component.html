@@ -1,0 +1,70 @@
+<div class="container"></div>
+<div class="row">
+    <section class="col-3">
+        <ng-container *ngIf="cities" >
+        <mat-accordion>
+          <mat-expansion-panel >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sorts
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <drop-down-component [options]="sortOptions" [(selectedValue)]="queryParams.sortSelected"></drop-down-component>
+          </mat-expansion-panel>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Cities
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <drop-down-component [options]="cities" [(selectedValue)]="queryParams.selectedCityId" (callBack)="onCitySelected()"></drop-down-component>
+            </mat-expansion-panel>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Room Types
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <drop-down-component [options]="roomTypes" [(selectedValue)]="queryParams.selectedRoomTypeId" ></drop-down-component>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+         <!-- <ul class="list-group my-3">
+           <li class="list-group-item" *ngFor="let type of types" [class.active]="type.id === this.shopParams.typeId"
+           [value]="type.id" (click)="onTypeSelected(type.id)">
+           {{type.name}}
+       </li>
+         </ul> -->
+       </ng-container>
+    </section>
+    <section class="col-9">
+        <div class="d-flex justify-content-between align-items-center pb-2">
+           <!-- <app-paging-header
+               [totalCount]="totalCount"
+               [pageSize]="this.shopParams.pageSize"
+               [pageNumber]="this.shopParams.pageNumber"
+           ></app-paging-header> -->
+           <!-- <div class="form-inline mt-2">
+               <input type="text" class="form-control" #search style="width: 300px;" placeholder="Search">
+               <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+               <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
+           </div> -->
+        </div>
+        
+       <div class="row ">
+           <div class="col-4" *ngFor="let item of hotels">
+             <app-hotel-item [product]="item"></app-hotel-item>
+           </div>
+       </div>
+       <div class="d-flex justify-content-center">
+          <!-- <app-pager
+           [pageSize]="shopParams.pageSize"
+           [totalCount]="totalCount"
+           (pageChanged)="onPageChanged($event)">
+
+          </app-pager> -->
+       </div>
+
+   </section>
+</div>
+

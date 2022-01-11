@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CommonFunctionality.Core.Behaviors;
@@ -26,8 +27,15 @@ namespace LuxTravel.Api.Core.Handlers.MasterData
         public async Task<IEnumerable<SelectedObjectDto>> Handle(GetAllCitiesQuery request, CancellationToken cancellationToken)
         {
 
-            var data = await  _unitOfWork.CityRepository.GetMany(r=>r.IsActive);
-            return _mapper.Map<IEnumerable<SelectedObjectDto>>(data);
+            var allCities = await  _unitOfWork.CityRepository.GetMany(r=>r.IsActive);
+
+            
+            var allLocations = await _unitOfWork.HotelLocationRepository.GetAll();
+            var citiyIds = allLocations.Select(r => r.CityId).ToList();
+            allCities = allCities.Where(r => citiyIds.Contains(r.Id));
+            
+
+            return _mapper.Map<IEnumerable<SelectedObjectDto>>(allCities);
 
         }
 

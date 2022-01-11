@@ -1,0 +1,34 @@
+
+		<div class="hotel_info">
+
+      <!-- Title -->
+      <div class="hotel_title_container d-flex flex-lg-row flex-column">
+        <div class="hotel_title_content">
+          <h1 class="hotel_title">{{hotel.hotelName}}</h1>
+          <div class="rating_r rating_r_4 hotel_rating">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div class="hotel_location">{{hotel.location}}</div>
+        </div>
+
+      </div>
+
+      <!-- Listing Image -->
+
+      <!-- <div class="hotel_image">
+        <img src="http://res.cloudinary.com/minhchien206/image/upload/v1611848605/juw4ycreqpr4ygy27sl4.jpg" alt="">
+      </div> -->
+
+
+
+
+    </div>
+
+<div class="col-12" *ngFor="let item of rooms">
+    <app-room-item  [room]="item"></app-room-item>
+
+  </div>

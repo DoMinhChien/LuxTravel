@@ -1,0 +1,193 @@
+.offers_image_container
+{
+	height: 708px;
+}
+.offers_content
+{
+	margin-top: 10px;
+}
+.offer_reviews
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.offer_reviews_content
+{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 7px;
+}
+.offer_reviews_title
+{
+	font-size: 12px;
+	font-weight: 700;
+	color: #2d2c2c;
+	text-transform: uppercase;
+}
+.offer_reviews_subtitle
+{
+	font-size: 12px;
+	font-weight: 600;
+	color: #929191;
+	margin-top: 1px;
+}
+.offer_reviews_rating
+{
+	display: inline-block;
+	width: 62px;
+	height: 57px;
+	font-size: 28px;
+	font-weight: 700;
+	color: #FFFFFF;
+	line-height: 57px;
+	background: #fa9e1b;
+	vertical-align: middle;
+	border-radius: 45%;
+	-webkit-transform: translateY(-4px);
+	-moz-transform: translateY(-4px);
+	-ms-transform: translateY(-4px);
+	-o-transform: translateY(-4px);
+	transform: translateY(-4px);
+}
+
+.offers_price
+{
+	display: inline-block;
+	font-size: 36px;
+	font-weight: 700;
+	color: #eda84a;
+	line-height: 25px;
+	padding-left: 15%;
+}
+.offers_price span
+{
+	font-size: 14px;
+	font-weight: 400;
+	color: #929191;
+	margin-left: 12px;
+}
+.offers_image_background
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+.offers_text
+{
+	font-size: 14px;
+	font-weight: 400;
+	color: #929191;
+	margin-top: 16px;
+	margin-bottom: 0px;
+	padding-left: 15%;
+}
+.offers_icons
+{
+	margin-top: 21px;
+	padding-left: 15%;
+}
+.offers_icons_list{
+	display: inline-flex;
+	list-style-type:  none;
+}
+.offers_icons_item
+{
+	display: inline-block;
+	margin-right: 15px;
+}
+.offers_icons_item:last-child
+{
+	margin-right: 0px;
+}
+.book_button
+{
+	background: #31124b;
+	margin-top: 39px;
+	margin-bottom: -5px;
+	-webkit-transition: all 200ms ease;
+	-moz-transition: all 200ms ease;
+	-ms-transition: all 200ms ease;
+	-o-transition: all 200ms ease;
+	transition: all 200ms ease;
+	margin-left: 20%;
+}
+.book_button:hover
+{
+	opacity: 0.8;
+}
+
+.button
+{
+	display: inline-block;
+	height: 53px;
+	border-radius: 27px;
+	overflow: hidden;
+	z-index: 1;
+}
+.button_bcg
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200%;
+	height: 100%;
+	background: linear-gradient(to right, #fa9e1b, #8d4fff, #fa9e1b);
+	z-index: -1;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+}
+.button:hover .button_bcg
+{
+	left: -100%;
+}
+.button a
+{
+	display: block;
+	font-size: 13px;
+	font-weight: 700;
+	color: #fff;
+	text-transform: uppercase;
+	line-height: 53px;
+	padding-left: 46px;
+	padding-right: 46px;
+	white-space: nowrap;
+	z-index: 2;
+}
+.button span
+{
+	display: inline-block;
+	vertical-align: middle;
+	width: 5.75px;
+	height: 5.63px;
+	background: #FFFFFF;
+	border-radius: 50%;
+	margin-right: 2px;
+}
+.button span:first-child
+{
+	margin-left: 10px;
+}
+.button span:nth-child(2)
+{
+	opacity: 0.6;
+}
+.button span:last-child
+{
+	opacity: 0.4;
+	margin-right: 0px;
+}
+.offers_item{
+	height: 350px;
+}
+.offer_name{
+	padding-left: 15%;
+}

@@ -27,7 +27,7 @@ namespace LuxTravel.Api.Controllers
             return await SendRequestAsync(model);
         }
         [AllowAnonymous]
-        [HttpGet("api/hotel/{id}")]
+        [HttpGet("api/hotels/{id}")]
         public async Task<HotelDetailDto> Get(Guid id)
         {
             var result = await SendRequestAsync(new GetDetailHotelQuery() { Id = id });

@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill" class="display-f">
+    <input matInput [min]="minDate"
+     [max]="maxDate"
+     [matDatepicker]="picker"
+     disabled 
+     (dateChange)="onDateChange($event)"
+     [value]="selectedDate"
+     >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="month" [startAt]="startDate" disabled="false" [touchUi]="true"></mat-datepicker>
+    
+  </mat-form-field>
+

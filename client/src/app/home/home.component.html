@@ -1,0 +1,45 @@
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+                <div class="booking-form">
+                    <h3>Booking Your Hotel</h3>
+                        <div >
+                            <label >Location:</label>
+                            <drop-down-component [options]="CityOptions" [(selectedValue)]="queryParams.selectedCityId"></drop-down-component>
+                            
+                        </div>
+
+                        <div >
+                            <label >Guests:</label>
+                            <drop-down-component [options]="GuestOptions" [(selectedValue)]="queryParams.guestSelected" ></drop-down-component>
+                        </div>
+                        <div >
+                            <label >Room:</label>
+                            <drop-down-component [options]="RoomOptions" [(selectedValue)]="queryParams.roomQuantitySelected"></drop-down-component>
+
+                        </div>
+                        <div class="check-in" >
+                            <label >Check In:</label>
+                            <date-picker-component [(selectedDate)]="queryParams.selectedCheckIn"></date-picker-component>
+                            
+                        </div>
+                        <div  class="check-in">
+                            <label >Check Out:</label>
+                            <date-picker-component [(selectedDate)]="queryParams.selectedCheckOut"></date-picker-component>
+
+                        </div>
+                        <button style="width:60%;" mat-raised-button (click)="getAvailableHotels()">Check avalability</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-1.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-2.jpg"></div>
+        <div class="hs-item set-bg" data-setbg="img/hero/hero-3.jpg"></div>
+    </div>
+</section>
